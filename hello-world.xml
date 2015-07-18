@@ -24,12 +24,14 @@
 		// Make request to web service with HTTP method 'GET'
 		var returned_response = request_instance.get();
 
+		var teste = {}
+		teste.teles = "lindo";
+
          response.object = <item>
                              <url>{request.url}</url>
                              <a>{a}</a>
                              <b>{b}</b>
-                             <tudo>returned_response</tudo>
-                             <request>request</request>
+                             <tudo>{teste}</tudo>
                            </item>;
       ]]></execute>    
     </select>  
