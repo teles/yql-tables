@@ -15,11 +15,23 @@
       <execute><![CDATA[          
          // Your javascript goes here. 
          // We will run it on our servers
-         response.object = <item>
-                             <url>{request.url}</url>
-                             <a>{a}</a>
-                             <b>{b}</b>
-                           </item>;
+         y.include("https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js");
+         var urlCarroSaoJose =  "www.carrosaojose.com.br/veiculos?revenda_id=3639";
+
+		// Create an instance of the request object
+		var request_instance = y.rest(urlCarroSaoJose);
+
+		// Make request to web service with HTTP method 'GET'
+		var returned_response = request_instance.get();
+
+		y.log("oi");
+		y.log(returned_response);
+
+        response.object = <item>
+                            <url>{request.url}</url>
+                            <a>{a}</a>
+                            <b>{b}</b>
+                        </item>;
       ]]></execute>    
     </select>  
   </bindings>
