@@ -9,30 +9,28 @@
         <url>http://fake.url/{a}</url>
       </urls>
       <inputs>
-        <key id='a' type='xs:string' paramType='path' required="true" />
+        <key id='id' type='xs:string' paramType='path' required="true" />
         <key id='b' type='xs:string' paramType='variable' required="true" />
       </inputs>
       <execute><![CDATA[          
-         // Your javascript goes here. 
-         // We will run it on our servers
-         //y.include("https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js");
-         var urlBasica =  "www.carrosaojose.com.br/veiculos?revenda_id=3639";
+          var urlBasica =  "www.carrosaojose.com.br/veiculos?revenda_id=3639";
 
-		// Create an instance of the request object
-		var request_instance = y.rest(urlBasica);
+      		// Create an instance of the request object
+      		var request_instance = y.rest(urlBasica);
 
-		// Make request to web service with HTTP method 'GET'
-		var returned_response = request_instance.get();
+      		// Make request to web service with HTTP method 'GET'
+      		var returned_response = request_instance.get();
 
-    var data = returned_response;
-    var xpath = "//div[contains(@class, 'titulo')]";
-    var xdata = y.xpath(data,xpath);
+          var data = returned_response;
+          var xpath = "//div[contains(@class, 'titulo')]";
+          var xdata = y.xpath(data,xpath);
 
-		var teste = {}
-		teste.url =  returned_response.response;
-		teste.data = xdata;
+      		var teste = {}
+      		teste.url =  returned_response.response();
+      		teste.data = xdata;
 
-        response.object = y.jsonToXml(teste);
+          response.object = y.jsonToXml(teste);
+
       ]]></execute>    
     </select>  
   </bindings>
