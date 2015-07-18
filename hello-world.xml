@@ -10,24 +10,13 @@
       </urls>
       <inputs>
         <key id='id' type='xs:string' paramType='path' required="true" />
-        <key id='b' type='xs:string' paramType='variable' required="true" />
       </inputs>
-      <execute><![CDATA[          
-          var urlBasica =  "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
+      <execute><![CDATA[                
+          var urlBasica =  "www.carrosaojose.com.br/veiculos?revenda_id=3639";
+          var resultado = {};
+          resultado.id = {id};
 
-      		// Create an instance of the request object
-      		var resultado = y.rest(urlBasica).get().response();
-
-          // var data = returned_response;
-          // var xpath = "//div[contains(@class, 'titulo')]";
-          // var xdata = y.xpath(data,xpath);
-
-      		var teste = {}
-      		// teste.url =  
-      		// teste.data = xdata;
-          teste.resultado = resultado;
-
-          response.object = y.jsonToXml(teste);
+          response.object = y.jsonToXml(resultado);
 
       ]]></execute>    
     </select>  
