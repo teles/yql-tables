@@ -14,7 +14,7 @@
       <execute><![CDATA[                
           var urlBasica =  "www.carrosaojose.com.br/veiculos?revenda_id=3639";
           var resultado = {};
-          resultado.id = {id};
+          resultado.id = "nada";
 
           response.object = y.jsonToXml(resultado);
 
