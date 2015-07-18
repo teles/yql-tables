@@ -28,8 +28,8 @@
                              <url>{request.url}</url>
                              <a>{a}</a>
                              <b>{b}</b>
-                             <tudo>{returned_response}</tudo>
-                             <request>{request}</request>
+                             <tudo>returned_response</tudo>
+                             <request>request</request>
                            </item>;
       ]]></execute>    
     </select>  
