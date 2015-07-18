@@ -29,7 +29,7 @@
     var xdata = y.xpath(data,xpath);
 
 		var teste = {}
-		teste.url =  returned_response;
+		teste.url =  returned_response.response;
 		teste.data = xdata;
 
         response.object = y.jsonToXml(teste);
