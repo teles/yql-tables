@@ -22,14 +22,13 @@
 		var request_instance = y.rest(urlBasica);
 
 		// Make request to web service with HTTP method 'GET'
-		var returned_response = request_instance.get();
+		//var returned_response = request_instance.get();
 
-		var data = request_instance.accept('text/html');
-		var xdata = y.xpath(data,"//div");
+    var data = request_instance('text/html').response;
+    var xpath = "//div[contains(@class, 'titulo')]";
+    var xdata = y.xpath(data,xpath);
 
 		var teste = {}
-		teste.teles = "lindo";
-		teste.maciel = "demais";
 		teste.url =  returned_response;
 		teste.data = xdata;
 
