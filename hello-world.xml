@@ -24,7 +24,7 @@
 		// Make request to web service with HTTP method 'GET'
 		//var returned_response = request_instance.get();
 
-    var data = request_instance('text/html').response;
+    var data = request_instance.response;
     var xpath = "//div[contains(@class, 'titulo')]";
     var xdata = y.xpath(data,xpath);
 
