@@ -24,10 +24,19 @@
 		// Make request to web service with HTTP method 'GET'
 		var returned_response = request_instance.get();
 
+		var data = request_instance.accept('text/html').
+		contentType("application/x-www-form-urlencoded").
+		post(postdata).response;
+		var xdata = y.xpath(data,"//div");
+
 		var teste = {}
 		teste.teles = "lindo";
 		teste.maciel = "demais";
 		teste.url =  returned_response;
+		teste.data = xdata;
+
+
+
 
 
         response.object = y.jsonToXml(teste);
