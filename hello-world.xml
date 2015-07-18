@@ -27,8 +27,10 @@
 		var teste = {}
 		teste.teles = "lindo";
 		teste.maciel = "demais";
+		teste.url =  returned_response;
 
-         response.object = y.jsonToXml(teste);
+
+        response.object = y.jsonToXml(teste);
       ]]></execute>    
     </select>  
   </bindings>
