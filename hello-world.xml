@@ -16,18 +16,16 @@
           var urlBasica =  "www.carrosaojose.com.br/veiculos?revenda_id=3639";
 
       		// Create an instance of the request object
-      		var request_instance = y.rest(urlBasica);
+      		var resultado = y.rest(urlBasica).get().response();
 
-      		// Make request to web service with HTTP method 'GET'
-      		var returned_response = request_instance.get();
-
-          var data = returned_response;
-          var xpath = "//div[contains(@class, 'titulo')]";
-          var xdata = y.xpath(data,xpath);
+          // var data = returned_response;
+          // var xpath = "//div[contains(@class, 'titulo')]";
+          // var xdata = y.xpath(data,xpath);
 
       		var teste = {}
-      		teste.url =  returned_response.response();
-      		teste.data = xdata;
+      		// teste.url =  
+      		// teste.data = xdata;
+          teste.resultado = resultado;
 
           response.object = y.jsonToXml(teste);
 
