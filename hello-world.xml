@@ -26,13 +26,9 @@
 
 		var teste = {}
 		teste.teles = "lindo";
+		teste.maciel = "demais";
 
-         response.object = <item>
-                             <url>{request.url}</url>
-                             <a>{a}</a>
-                             <b>{b}</b>
-                             <tudo>{teste}</tudo>
-                           </item>;
+         response.object = y.jsonToXml(teste);
       ]]></execute>    
     </select>  
   </bindings>
