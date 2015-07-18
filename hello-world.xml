@@ -13,7 +13,7 @@
         <key id='b' type='xs:string' paramType='variable' required="true" />
       </inputs>
       <execute><![CDATA[          
-          var urlBasica =  "www.carrosaojose.com.br/veiculos?revenda_id=3639";
+          var urlBasica =  "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
 
       		// Create an instance of the request object
       		var resultado = y.rest(urlBasica).get().response();
