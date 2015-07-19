@@ -21,6 +21,8 @@
           var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
           y.log(query);
           resultado.online = true;
+          resultado.quantidade = query.length;
+          resultado.typeof = typeof query;
 
           response.object = y.jsonToXml(resultado);
 
