@@ -9,24 +9,21 @@
   <bindings>
     <select produces="XML">
       <urls>
-        <url>http://www.submarino.com.br/busca</url>
+        <url>www.carrosaojose.com.br/veiculos</url>
       </urls>
       <inputs>
-        <key id="q" as="query" type="xs:string" paramType="query" required="true" />
-        <key id="offset" type="xs:string" paramType="query" required="false" default="0" />
-        <key id="limit" type="xs:string" paramType="query" required="false" default="20" />
+        <key id="?revenda_id" as="revenda" type="xs:string" paramType="query" required="true" />
       </inputs>
       <execute><![CDATA[
+
         var results = [];
         var data = request.accept('text/html').get().response;
-        var products = y.xpath(data, "//ul[@id='ul_product_list1']/li/div");
-        var total_entries = y.xpath(data, "//div[@class='bottomPageList']/ul[@class='results']/li/p/text()");
+        var carros = y.xpath(data, "//div[contains(@class, 'produto')]");
+        //var total_entries = y.xpath(data, "//div[@class='bottomPageList']/ul[@class='results']/li/p/text()");
 
-        for each (var item in products) {
+        for each (var carro in carros) {
           results.push({
-            image: y.xpath(item, "//a[contains(@class, 'link')]/img/@src"),
-            title: y.xpath(item, "//span[@class='name entry-title']/strong/text()"),
-            description: y.xpath(item, "//span[@class='description']/text()")
+            titulo: y.xpath(item, "//a[contains(@class, 'titulo')]/text()")
           });
         }
 
@@ -35,16 +32,15 @@
 
           for (item in results) {
             output.node += <entry>
-              <title>{results[item].title}</title>
-              <description>{results[item].description}</description>
-              <image>{results[item].image}</image>
+              <title>{results[item].titulo}</title>
             </entry>;
           }
 
-          output.@items = total_entries.match(/\d+$/)[0];
+          //output.@items = total_entries.match(/\d+$/)[0];
         }
 
         response.object = output;
+
         ]]>
       </execute>
     </select>
