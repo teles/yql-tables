@@ -12,7 +12,7 @@
         <url>www.carrosaojose.com.br/veiculos</url>
       </urls>
       <inputs>
-        <key id="?revenda_id" as="revenda" type="xs:string" paramType="query" required="true" />
+        <key id="revenda_id" as="revenda" type="xs:string" paramType="query" required="true" />
       </inputs>
       <execute><![CDATA[
 
