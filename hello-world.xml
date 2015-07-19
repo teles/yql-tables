@@ -21,7 +21,10 @@
           var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
           resultado.online = true;
           resultado.objeto = query;
-          y.log(y.xpath(query, "//a[contains(@class, 'titulo')]"));
+          var query_xml = y.jsonToXml(query);
+
+          teste = y.xpath(query_xml, "//a[contains(@class, 'titulo')]") 
+          y.log(teste);
 
 
           response.object = y.jsonToXml(resultado);
