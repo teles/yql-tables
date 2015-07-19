@@ -19,10 +19,9 @@
           resultado.online = true;
 
           var data = request.accept('text/html').get().response;
-          var xpath_carros = y.xpath(data, "//div[contains(@class, 'produto')]");
-          var xpath_titulo = '';
+          //var xpath_carros = y.xpath(data, "//div[contains(@class, 'produto')]");
 
-          resultado.quantidadeDeCarros = xpath_carros.length;
+          resultado.quantidadeDeCarros = 10;
 
           response.object = y.jsonToXml(resultado);
 
