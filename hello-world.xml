@@ -20,11 +20,12 @@
           var url = "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
           var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
           resultado.online = true;
-          resultado.objeto = query;
           var query_xml = y.jsonToXml(query);
+          resultado.objeto = query_xml;
 
-          teste = y.xpath(query_xml, "//a[contains(@class, 'titulo')]") 
-          y.log(teste);
+
+          //teste = y.xpath(query_xml, "//a[contains(@class, 'titulo')]") 
+          //y.log(teste);
 
 
           response.object = y.jsonToXml(resultado);
