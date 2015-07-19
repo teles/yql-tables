@@ -19,9 +19,9 @@
           var xpath = "//div[contains(@class, 'produto')]";
           var url = "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
           var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
-          y.log(query);
           resultado.online = true;
-          resultado.objeto = query.results;
+          resultado.objeto = query;
+          y.log(y.xpath(query, "//a[contains(@class, 'titulo')]"));
 
 
           response.object = y.jsonToXml(resultado);
