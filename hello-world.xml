@@ -12,14 +12,14 @@
         <key id='id' type='xs:string' paramType='path' required="true" />
       </inputs>
       <execute><![CDATA[                
-          var urlBasica =  "www.carrosaojose.com.br/veiculos?revenda_id=3639";
+          var urlBasica =  "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
           var resultado = {};
           resultado.id = "nada";
 
           var x = y.rest(urlBasica).accept("text/html").get().response;
           var livedata = y.xpath(x, "//div[contains(@class, 'titulo')]");
 
-          resultado.livedata = livedata;          
+          resultado.livedata = livedata[0];          
 
           response.object = y.jsonToXml(resultado);
 
