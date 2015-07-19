@@ -16,12 +16,9 @@
           <execute><![CDATA[
 
           var resultado = {};
-          resultado.online = true;
-
-          var data = request.accept('text/html').get().response;
-          var xpath_carros = y.xpath(data, "//div[contains(@class, 'produto')]");
-
-          resultado.quantidadeDeCarros = typeof xpath_carros;
+          var xpath = "//div[contains(@class, 'produto')]";
+          var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
+          resultado.tudo = query;
 
           response.object = y.jsonToXml(resultado);
 
