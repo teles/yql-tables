@@ -18,7 +18,8 @@
           var resultado = {};
           var xpath = "//div[contains(@class, 'produto')]";
           var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
-          resultado.tudo = query;
+          y.log(query);
+          resultado.online = true;
 
           response.object = y.jsonToXml(resultado);
 
