@@ -16,30 +16,43 @@
       </inputs>
       <execute><![CDATA[
 
-        var results = [];
+        // var results = [];
+        var resultado = {};
+        resultado.online = true;
+
         var data = request.accept('text/html').get().response;
-        var carros = y.xpath(data, "//div[contains(@class, 'produto')]");
+        var xpath_carros = y.xpath(data, "//div[contains(@class, 'produto')]");
+        var xpath_titulo = '';
+
+        resultado.quantidadeDeCarros = xpath_carros.length;
+
+        // for(var i)
+        // for each (var carro in xpath_carros) {
+        // 	xpath_titulo = y.xpath(carro, "//a[contains(@class, 'titulo')/text()]");
+
+        // }
+
         //var total_entries = y.xpath(data, "//div[@class='bottomPageList']/ul[@class='results']/li/p/text()");
 
-        for each (var carro in carros) {
-          results.push({
-            titulo: y.xpath(item, "//a[contains(@class, 'titulo')]/text()")
-          });
-        }
+        // for each (var carro in carros) {
+        //   results.push({
+        //     titulo: y.xpath(item, "//a[contains(@class, 'titulo')]/text()")
+        //   });
+        // }
 
-        if (results.length) {
-          var output = <products></products>;
+        // if (results.length) {
+        //   var output = <products></products>;
 
-          for (item in results) {
-            output.node += <entry>
-              <title>{results[item].titulo}</title>
-            </entry>;
-          }
+        //   for (item in results) {
+        //     output.node += <entry>
+        //       <title>{results[item].titulo}</title>
+        //     </entry>;
+        //   }
 
-          //output.@items = total_entries.match(/\d+$/)[0];
-        }
+        //   //output.@items = total_entries.match(/\d+$/)[0];
+        // }
 
-        response.object = output;
+        response.object = y.jsonToXml(resultado);
 
         ]]>
       </execute>
