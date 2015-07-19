@@ -22,6 +22,7 @@
           y.log(query);
           resultado.online = true;
           resultado.objeto = query;
+          
 
           response.object = y.jsonToXml(resultado);
 
