@@ -16,9 +16,9 @@
           var url = "https://rawgit.com/teles/yql-tables/master/exemplo.html";
           var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
           resultado.online = true;
-          var ano = y.xpath(query, "//a[contains(@class, 'ano')]");
+          //var ano = y.xpath(query, "//a[contains(@class, 'ano')]");
 
-          resultado.ano = ano;
+          resultado.tidy = y.tidy(query);
 
           response.object = y.jsonToXml(resultado);
 
