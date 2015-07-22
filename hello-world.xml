@@ -10,16 +10,11 @@
           <url>https://rawgit.com/teles/yql-tables/master/exemplo.html</url>
         </urls>
         <execute><![CDATA[
+          var data = y.query("select * from html where url='https://rawgit.com/teles/yql-tables/master/exemplo.html' and charset='iso-8859-1'").results.children();
 
           var resultado = {};
-          var xpath = "//div[contains(@class, 'produto')]";
-          var url = "https://rawgit.com/teles/yql-tables/master/exemplo.html";
-          var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
-          resultado.online = true;
-          var tidy = y.tidy(query);
-          resultado.tidy = tidy;
-      
-          y.log(tidy);
+          resultado.data = data;
+
 
           response.object = y.jsonToXml(resultado);
 
