@@ -7,30 +7,22 @@
       <bindings>
         <select produces="XML">
         <urls>
-          <url>http://www.carrosaojose.com.br/veiculos</url>
+          <url>https://rawgit.com/teles/yql-tables/master/exemplo.html</url>
         </urls>
-        <inputs>
-          <key id="revenda_id" as="revenda" type="xs:string" paramType="query" required="true" />
-        </inputs>
-
-          <execute><![CDATA[
+        <execute><![CDATA[
 
           var resultado = {};
           var xpath = "//div[contains(@class, 'produto')]";
-          var url = "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
+          var url = "https://rawgit.com/teles/yql-tables/master/exemplo.html";
           var query   = y.query("SELECT * FROM html WHERE url=@url AND xpath=@xpath", {url: url, xpath: xpath});
           resultado.online = true;
           var query_xml = y.jsonToXml(query);
           resultado.objeto = query_xml;
 
-
-          //teste = y.xpath(query_xml, "//a[contains(@class, 'titulo')]") 
-          //y.log(teste);
-
-
           response.object = y.jsonToXml(resultado);
 
- ]]></execute>
+        ]]>
+        </execute>
       </select>
       </bindings>
 </table>
