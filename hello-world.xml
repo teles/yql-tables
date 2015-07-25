@@ -24,7 +24,7 @@
           var jsonficado = y.xmlToJson(tidificado);
           y.log(jsonficado);
 
-          response.object = jsonficado;
+          response.object = tidificado;
 
 
 
