@@ -32,6 +32,13 @@
 
 
           y.log(y.jsonToXml(revenda));
+          response.object = <revenda>;
+
+          for(var xpathSelectorRevenda in xpathMapRevenda) {
+              if(xpathMapRevenda.hasOwnProperty(xpathSelectorRevenda)) {
+                  response.object+= <xpathSelectorRevenda>xpathMapRevenda[xpathSelectorRevenda]</xpathSelectorRevenda>;
+              }
+          }              
 
           // response.object = <revenda>
           //                       <foto>{revenda.foto}</foto>
@@ -39,7 +46,7 @@
           //                       <endereco>{revenda.endereco}</endereco>
           //                   </revenda>;
 
-          response.object = <revenda>{y.jsonToXml(revenda)}</revenda>;
+          response.object += </revenda>;
 
 
 
