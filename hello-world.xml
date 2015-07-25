@@ -10,13 +10,22 @@
           <url>https://rawgit.com/teles/yql-tables/master/exemplo.html</url>
         </urls>
         <execute><![CDATA[
-          var data = y.query("select * from html where url='https://cdn.rawgit.com/teles/yql-tables/master/html4.html' ");
+          var urlParaRaspar = "https://cdn.rawgit.com/teles/yql-tables/master/html4.html";
+          //var data = y.query("select * from html where url='https://cdn.rawgit.com/teles/yql-tables/master/html4.html'");
 
-          var resultado = {};
-          resultado.data = data;
+          var data = y.rest(urlParaRaspar).accept('text/html').get().response;    
+          var responseData = y.xpath(data, "//div[@class='valor']");
+          y.log(responseData);
+          
+          var tidificado = y.tidy(responseData);
+          y.log(tidificado);
+
+          var jsonficado = y.xmlToJson(tidificado);
+          y.log(jsonficado);
+
+          //response.object = y.jsonToXml(resultado);
 
 
-          response.object = y.jsonToXml(resultado);
 
         ]]>
         </execute>
