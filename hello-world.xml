@@ -12,7 +12,7 @@
         <execute><![CDATA[
           var urlParaRaspar = "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
           var data = y.rest(urlParaRaspar).accept('text/html').get().response;    
-          
+
 
           var xpathMapRevenda = {
               "rootElement": "//div[contains(@class, 'filtros-lista')][1]",
@@ -33,7 +33,7 @@
 
           y.log(revenda);
 
-          response.object = y.jsonToXml(revenda);
+          response.object = <foto>revenda.foto</foto>;
 
 
           // for(var xpathSelectorRevenda in xpathMapRevenda) {
