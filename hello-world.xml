@@ -34,12 +34,14 @@
 
           var revenda = {
             "foto": y.xpath(revendaRootElement, xpathMapRevenda.foto),
-            "nome": y.xpath(revendaRootElement, xpathMapRevenda.nome).content,
-            "endereco": y.xpath(revendaRootElement, xpathMapRevenda.endereco).content,
+            "nome": y.xpath(revendaRootElement, xpathMapRevenda.nome),
+            "endereco": y.xpath(revendaRootElement, xpathMapRevenda.endereco),
           }
 
 
-          response.object = y.jsonToXml(revenda);
+          y.log(revenda);
+
+          //response.object = y.jsonToXml(revenda);
 
 
           // for(var xpathSelectorRevenda in xpathMapRevenda) {
