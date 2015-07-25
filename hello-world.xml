@@ -17,7 +17,7 @@
           var xpathMapRevenda = {
               "rootElement": "//div[contains(@class, 'filtros-lista')][1]",
               "foto": "//div[contains(@class, 'photoRev')]/img/@src",
-              "nome": "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]",
+              "nome": "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               "endereco": "//div[contains(@class, 'endereco')][1]/p",
           };
 
