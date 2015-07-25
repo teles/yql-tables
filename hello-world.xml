@@ -18,7 +18,7 @@
               "rootElement": "//div[contains(@class, 'filtros-lista')][1]",
               "foto": "//div[contains(@class, 'photoRev')]/img/@src",
               "nome": "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
-              "endereco": "//div[contains(@class, 'endereco')][1]/p",
+              "endereco": "//div[contains(@class, 'endereco')][1]/p//text()",
           };
 
 
@@ -27,13 +27,17 @@
           var revenda = {
             "foto": y.xpath(revendaRootElement, xpathMapRevenda.foto),
             "nome": y.xpath(revendaRootElement, xpathMapRevenda.nome),
-            "endereco": y.xpath(revendaRootElement, xpathMapRevenda.endereco).content,
+            "endereco": y.xpath(revendaRootElement, xpathMapRevenda.endereco),
           }
 
 
           y.log(revenda);
 
-          response.object = <revenda><foto>{revenda.foto}</foto><nome>{revenda.nome}</nome></revenda>;
+          response.object = <revenda>
+                                <foto>{revenda.foto}</foto>
+                                <nome>{revenda.nome}</nome>
+                                <endereco>{revenda.endereco}</endereco>
+                            </revenda>;
 
 
           // for(var xpathSelectorRevenda in xpathMapRevenda) {
