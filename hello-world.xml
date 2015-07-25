@@ -33,7 +33,7 @@
 
           y.log(revenda);
 
-          response.object = <foto>revenda.foto</foto>;
+          response.object = <foto>{revenda.foto}</foto>;
 
 
           // for(var xpathSelectorRevenda in xpathMapRevenda) {
