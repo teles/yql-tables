@@ -11,16 +11,8 @@
         </urls>
         <execute><![CDATA[
           var urlParaRaspar = "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
-
           var data = y.rest(urlParaRaspar).accept('text/html').get().response;    
-          var responseData = y.xpath(data, "//div[@class='valor']");
-          y.log(responseData);
           
-          var tidificado = y.tidy(responseData);
-          y.log(tidificado);
-
-          var jsonficado = y.xmlToJson(tidificado);
-          y.log(jsonficado);
 
           var xpathMapRevenda = {
               "rootElement": "//div[contains(@class, 'filtros-lista')][1]",
@@ -34,14 +26,14 @@
 
           var revenda = {
             "foto": y.xpath(revendaRootElement, xpathMapRevenda.foto),
-            "nome": y.xpath(revendaRootElement, xpathMapRevenda.nome),
-            "endereco": y.xpath(revendaRootElement, xpathMapRevenda.endereco),
+            "nome": y.xpath(revendaRootElement, xpathMapRevenda.nome).content,
+            "endereco": y.xpath(revendaRootElement, xpathMapRevenda.endereco).content,
           }
 
 
           y.log(revenda);
 
-          //response.object = y.jsonToXml(revenda);
+          response.object = y.jsonToXml(revenda);
 
 
           // for(var xpathSelectorRevenda in xpathMapRevenda) {
