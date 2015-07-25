@@ -10,7 +10,7 @@
           <url>https://rawgit.com/teles/yql-tables/master/exemplo.html</url>
         </urls>
         <execute><![CDATA[
-          var data = y.query("select * from html where url='https://cdn.rawgit.com/teles/yql-tables/master/html4.html' ").results.children();
+          var data = y.query("select * from html where url='https://cdn.rawgit.com/teles/yql-tables/master/html4.html' ");
 
           var resultado = {};
           resultado.data = data;
