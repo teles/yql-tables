@@ -33,19 +33,13 @@
 
           y.log(revenda);
 
-          response.object = <revenda>
-                                <foto>{revenda.foto}</foto>
-                                <nome>{revenda.nome}</nome>
-                                <endereco>{revenda.endereco}</endereco>
-                            </revenda>;
+          // response.object = <revenda>
+          //                       <foto>{revenda.foto}</foto>
+          //                       <nome>{revenda.nome}</nome>
+          //                       <endereco>{revenda.endereco}</endereco>
+          //                   </revenda>;
 
-
-          // for(var xpathSelectorRevenda in xpathMapRevenda) {
-          //     if(xpathMapRevenda.hasOwnProperty(xpathSelectorRevenda)) {
-          //         y.xpath(revendaRootElement, xpath)                                        
-
-          //     }
-          // }          
+          response.object = <revenda>y.jsonToXml(revenda)</revenda>;
 
 
 
