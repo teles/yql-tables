@@ -39,7 +39,7 @@
           //                       <endereco>{revenda.endereco}</endereco>
           //                   </revenda>;
 
-          response.object = <revenda>y.jsonToXml(revenda)</revenda>;
+          response.object = <revenda>{y.jsonToXml(revenda)}</revenda>;
 
 
 
