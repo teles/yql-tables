@@ -33,9 +33,9 @@
           var revendaRootElement = y.xpath(data, xpathMapRevenda.rootElement);
 
           var revenda = {
-            "foto": y.tidy(y.xpath(revendaRootElement, xpathMapRevenda.foto)),
-            "nome": y.tidy(y.xpath(revendaRootElement, xpathMapRevenda.nome)),
-            "endereco": y.tidy(y.xpath(revendaRootElement, xpathMapRevenda.endereco)),
+            "foto": y.xpath(revendaRootElement, xpathMapRevenda.foto),
+            "nome": y.xpath(revendaRootElement, xpathMapRevenda.nome).content,
+            "endereco": y.xpath(revendaRootElement, xpathMapRevenda.endereco).content,
           }
 
 
