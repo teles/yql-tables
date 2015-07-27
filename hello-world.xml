@@ -31,8 +31,15 @@
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
 
           var carrosIds = y.xpath(data, revendaXpath.carrosIds);
+          var carros = {};
 
-          y.log(carrosIds);
+          for (var i = 0; i < carrosIds.length; i++) {
+            carros.id[i] = carrosIds[i];
+          }
+
+          revenda.carros = carros;
+
+          y.log(revenda);
 
           revendaXml = <revenda></revenda>;
           revendaXml.appendChild(<id>{revenda.id}</id>);
