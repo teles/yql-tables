@@ -40,7 +40,9 @@
           // y.log("carrosRootElement.childNodes.length: " + carrosRootElement.childNodes.length);
           // y.log("carrosRootElement.length: " + carrosRootElement.length);
           // y.log(carrosRootElement);
-          y.log(carrosRootElement.@class)
+          // y.log(carrosRootElement.@class)
+          y.log(carrosRootElement.@class.length);
+
 
 
 
