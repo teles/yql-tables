@@ -19,8 +19,8 @@
               foto: "//div[contains(@class, 'photoRev')]/img/@src",
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
-              carrosIds: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]",
-              carrosIdsContent: "//@rel"
+              carros: "//div[contains(@class, 'produto')]",
+              carrosIds: "//a[contains(@class, 'favoritlink')]//@rel"
           };
 
           var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
@@ -32,11 +32,11 @@
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
           revenda.carros = [];
 
-          var carrosIds = y.xpath(data, revendaXpath.carrosIds);
+          var carrosDiv = y.xpath(data, revendaXpath.carros);
 
           carros = [];
 
-          y.log(y.xpath(carrosIds, revendaXpath.carrosIdsContent));
+          y.log(y.xpath(carrosDiv, revendaXpath.carrosIds));
 
 
           revendaXml = <revenda></revenda>;
