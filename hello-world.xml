@@ -34,7 +34,7 @@
           var carrosIds = y.xpath(data, revendaXpath.carrosIds);
 
           for (var carro in carrosIds) {
-            y.log(carro.rel);
+            y.log(carro);
           }
 
           y.log(revenda.carros);
