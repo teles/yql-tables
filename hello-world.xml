@@ -46,7 +46,7 @@
    // 31          }
           carros = [];
           for each(var carroId in carrosIds) {
-            carros.push(y.xpath(carroId, revendaXpath.carrosIdsContent));
+            carros.push(carroId);
           }
           y.log(carros);
 
