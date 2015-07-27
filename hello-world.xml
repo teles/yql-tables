@@ -38,8 +38,6 @@
 
           // Montando objeto carros
           y.log(carrosRootElement);
-          var carros = carrosRootElement.a;
-          y.log(carros.length);
 
 
 
