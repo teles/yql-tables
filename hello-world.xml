@@ -31,10 +31,16 @@
               // carros: getCarros,
               // telefones: getTelefones,
 
-          y.log("e4x");
-          y.log(y.jsonToXml(revenda));
+          revendaXml = <revenda></revenda>;
+          revendaXml.appendChild(<id>{revenda.id}</id>);
+          revendaXml.appendChild(<nome>{revenda.nome}</nome>);
+          revendaXml.appendChild(<foto>{revenda.foto}</foto>);
+          revendaXml.appendChild(<endereco>{revenda.endereco}</endereco>);
 
-          response.object = <revenda>{y.jsonToXml(revenda)}</revenda>;
+          response.object = revendaXml;
+          
+
+
         ]]>
         </execute>
       </select>
