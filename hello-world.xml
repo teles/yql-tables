@@ -20,7 +20,7 @@
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
               carros: "//div[contains(@class, 'produto')]",
-              carrosIds: "//a[contains(@class, 'favoritlink')]/@rel"
+              carrosIds: "//a[contains(@class, 'favoritlink')]"
           };
 
           var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
