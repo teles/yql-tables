@@ -36,7 +36,7 @@
             carrosIds.push(carroId);
           }
 
-          y.log(carrosIds);
+          y.log(revendaXpath.carrosIds);
 
           revendaXml = <revenda></revenda>;
           revendaXml.appendChild(<id>{revenda.id}</id>);
