@@ -30,13 +30,9 @@
           revenda.endereco= y.xpath(revendaRootElement, revendaXpath.endereco);
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
 
-          var carrosIds = [];
+          var carrosIds = y.xpath(revendaRootElement, revendaXpath.carrosIds);
 
-          for each (var carroId in revendaXpath.carrosIds) {
-            carrosIds.push(carroId);
-          }
-
-          y.log(revendaXpath.carrosIds);
+          y.log(carrosIds);
 
           revendaXml = <revenda></revenda>;
           revendaXml.appendChild(<id>{revenda.id}</id>);
