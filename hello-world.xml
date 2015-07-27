@@ -19,8 +19,7 @@
               foto: "//div[contains(@class, 'photoRev')]/img/@src",
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
-              carrosIds: "//div[contains(@class, 'produto')]//div[contains(@class, 'compartilhar')]//a",              
-              carrosIdsContent: "//@rel"              
+              carrosIds: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]"
           };
 
           var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
