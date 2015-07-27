@@ -43,7 +43,7 @@
           // y.log(carrosRootElement.@class)
 
           // y.log(carrosRootElement.@class.length);
-          for each (var carro in carrosRootElement.div) {
+          for each (var carro in carrosRootElement.(@class == "produto")) {
             y.log(carro);
           }
 
