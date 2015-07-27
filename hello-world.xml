@@ -38,10 +38,12 @@
           var carros = [];
 
           // Montando objeto carros
-          for each (var id in carrosRootElement.@rel) {
-              carros.push(id);
-              y.log(id);
+          y.log(carrosRootElement.@rel.length);
+          
+          for(var i=0; i< carrosRootElement.@rel.length; i++) {
+              y.log(carrosRootElement.@rel[i]);
           }
+
 
           y.log(carros);
 
