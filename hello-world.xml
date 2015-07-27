@@ -41,8 +41,11 @@
           // y.log("carrosRootElement.length: " + carrosRootElement.length);
           // y.log(carrosRootElement);
           // y.log(carrosRootElement.@class)
-          y.log(carrosRootElement.@class.length);
 
+          // y.log(carrosRootElement.@class.length);
+          for each (var carro in carrosRootElement.div) {
+            y.log(carro);
+          }
 
 
 
