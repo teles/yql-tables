@@ -7,50 +7,49 @@
       <bindings>
         <select produces="XML">
         <urls>
-          <url>https://rawgit.com/teles/yql-tables/master/exemplo.html</url>
+          <url>http://www.carrosaojose.com.br/veiculos?revenda_id=3639</url>
         </urls>
         <execute><![CDATA[
+
           var urlParaRaspar = "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
           var data = y.rest(urlParaRaspar).accept('text/html').get().response;    
 
-
           var xpathMapRevenda = {
-              "rootElement": "//div[contains(@class, 'filtros-lista')][1]",
-              "foto": "//div[contains(@class, 'photoRev')]/img/@src",
-              "nome": "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
-              "endereco": "//div[contains(@class, 'endereco')][1]/p//text()",
+              rootElement: "//div[contains(@class, 'filtros-lista')][1]",
+              foto: "//div[contains(@class, 'photoRev')]/img/@src",
+              nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
+              endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
           };
-
 
           var revendaRootElement = y.xpath(data, xpathMapRevenda.rootElement);
 
           var revenda = {
-            "foto": y.xpath(revendaRootElement, xpathMapRevenda.foto),
-            "nome": y.xpath(revendaRootElement, xpathMapRevenda.nome),
-            "endereco": y.xpath(revendaRootElement, xpathMapRevenda.endereco),
+              id: getId,
+              nome: getNome,
+              endereco: getEndereco,
+              // carros: getCarros,
+              // telefones: getTelefones,
           }
 
+          function getId(){
+              return 3639;
+          }
 
-          y.log(y.jsonToXml(revenda));
-          response.object = <revenda>;
+          function getNome(){
+              return y.xpath(revendaRootElement, xpathMapRevenda.nome)
+          }
 
-          for(var xpathSelectorRevenda in xpathMapRevenda) {
-              if(xpathMapRevenda.hasOwnProperty(xpathSelectorRevenda)) {
-                  response.object+= <xpathSelectorRevenda>xpathMapRevenda[xpathSelectorRevenda]</xpathSelectorRevenda>;
-              }
-          }              
+          function getEndereco(){
+              return y.xpath(revendaRootElement, xpathMapRevenda.endereco)
+          }
 
-          // response.object = <revenda>
-          //                       <foto>{revenda.foto}</foto>
-          //                       <nome>{revenda.nome}</nome>
-          //                       <endereco>{revenda.endereco}</endereco>
-          //                   </revenda>;
+          y.log(y.jsonToXml(revenda));          
 
-          response.object += </revenda>;
-
-
-
-
+          response.object = <revenda>
+                                <foto>{revenda.foto}</foto>
+                                <nome>{revenda.nome}</nome>
+                                <endereco>{revenda.endereco}</endereco>
+                            </revenda>; 
         ]]>
         </execute>
       </select>
