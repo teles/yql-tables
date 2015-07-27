@@ -37,7 +37,8 @@
 
 
           // Montando objeto carros
-          y.log(carrosRootElement);
+          y.log(typeof carrosRootElement);
+          // y.log(carrosRootElement);
 
 
 
