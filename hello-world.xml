@@ -33,7 +33,7 @@
           }
 
             y.log("e4x");
-            y.log(y.jsonToXml(revenda));
+            y.log(y.jsonToXml(JSON.stringify(revenda)));
 
           response.object = <revenda>
                                 <foto>{revenda.foto}</foto>
