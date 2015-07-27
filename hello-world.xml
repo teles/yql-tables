@@ -36,7 +36,7 @@
 
           carros = [];
 
-          y.log(y.xpath(carrosIds, carrosIdsContent));
+          y.log(y.xpath(carrosIds, revendaXpath.carrosIdsContent));
 
 
           revendaXml = <revenda></revenda>;
