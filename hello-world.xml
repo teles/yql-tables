@@ -25,9 +25,9 @@
 
           var revenda = {}
           revenda.id = 3639;
-          revenda.nome: y.xpath(revendaRootElement, revendaXpath.nome);
-          revenda.endereco: y.xpath(revendaRootElement, revendaXpath.endereco);
-          revenda.foto: y.xpath(revendaRootElement, revendaXpath.foto);
+          revenda.nome= y.xpath(revendaRootElement, revendaXpath.nome);
+          revenda.endereco= y.xpath(revendaRootElement, revendaXpath.endereco);
+          revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
               // carros: getCarros,
               // telefones: getTelefones,
 
