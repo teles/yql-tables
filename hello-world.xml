@@ -32,6 +32,8 @@
               // telefones: getTelefones,
           }
 
+            y.log("e4x");
+            y.log(y.jsonToXml(revenda));
 
           response.object = <revenda>
                                 <foto>{revenda.foto}</foto>
