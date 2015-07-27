@@ -35,12 +35,11 @@
 
           for (var i = 0; i < carrosIds.length; i++) {
             carros.id[i] = carrosIds[i];
-            y.log(carrosIds[i]);
           }
 
           revenda.carros = carros;
 
-          y.log(carros);
+          y.log(carrosIds.length);
 
           revendaXml = <revenda></revenda>;
           revendaXml.appendChild(<id>{revenda.id}</id>);
