@@ -34,21 +34,9 @@
 
           var carrosIds = y.xpath(data, revendaXpath.carrosIds);
 
-   // 22:         var products = y.xpath(data, "//ul[@id='ul_product_list1']/li/div");
-   // 23:         var total_entries = y.xpath(data, "//div[@class='bottomPageList']/ul[@class='results']/li/p/text()");
-   // 24  
-   // 25          for each (var item in products) {
-   // 26            results.push({
-   // 27:             image: y.xpath(item, "//a[contains(@class, 'link')]/img/@src"),
-   // 28:             title: y.xpath(item, "//span[@class='name entry-title']/strong/text()"),
-   // 29:             description: y.xpath(item, "//span[@class='description']/text()")
-   // 30            });
-   // 31          }
           carros = [];
-          for each(var carroId in carrosIds) {
-            carros.push(carroId);
-          }
-          y.log(carros);
+
+          y.log(y.xpath(carrosIds, carrosIdsContent));
 
 
           revendaXml = <revenda></revenda>;
