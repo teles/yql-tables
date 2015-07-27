@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
     <meta>
-        <author>me</author>
+        <author>Jota Teles</author>
         <description>carros</description>
     </meta>
       <bindings>
@@ -24,23 +24,11 @@
           var revendaRootElement = y.xpath(data, xpathMapRevenda.rootElement);
 
           var revenda = {
-              id: getId,
-              nome: getNome,
-              endereco: getEndereco,
+              id: 3639,
+              nome: y.xpath(revendaRootElement, xpathMapRevenda.nome)
+              endereco: y.xpath(revendaRootElement, xpathMapRevenda.endereco)
               // carros: getCarros,
               // telefones: getTelefones,
-          }
-
-          function getId(){
-              return 3639;
-          }
-
-          function getNome(){
-              return y.xpath(revendaRootElement, xpathMapRevenda.nome)
-          }
-
-          function getEndereco(){
-              return y.xpath(revendaRootElement, xpathMapRevenda.endereco)
           }
 
           y.log(y.jsonToXml(revenda));          
