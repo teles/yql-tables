@@ -35,15 +35,13 @@
 
           y.log(carrosIds);
 
-          y.log(revenda.carros);
-
           revendaXml = <revenda></revenda>;
           revendaXml.appendChild(<id>{revenda.id}</id>);
           revendaXml.appendChild(<nome>{revenda.nome}</nome>);
           revendaXml.appendChild(<foto>{revenda.foto}</foto>);
           revendaXml.appendChild(<endereco>{revenda.endereco}</endereco>);
 
-          response.object = revendaXml;
+          response.object = carrosIds;
 
         ]]>
         </execute>
