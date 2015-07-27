@@ -20,7 +20,7 @@
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
               // carros: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]//@rel"
-              carros: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]"
+              carros: "//div[contains(@class, 'produto')]"
           };
 
           // Definição dos elementos raiz com dados da revenda e carros
@@ -38,7 +38,7 @@
 
           // Montando objeto carros
           y.log(carrosRootElement);
-          var carros = carrosRootElement.@rel;
+          var carros = carrosRootElement.a;
           y.log(carros.length);
 
 
