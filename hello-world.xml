@@ -25,7 +25,7 @@
 
           var revenda = {
               id: 3639,
-              nome: y.xpath(revendaRootElement, xpathMapRevenda.nome)
+              nome: y.xpath(revendaRootElement, xpathMapRevenda.nome),
               endereco: y.xpath(revendaRootElement, xpathMapRevenda.endereco)
               // carros: getCarros,
               // telefones: getTelefones,
