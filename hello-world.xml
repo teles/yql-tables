@@ -34,7 +34,7 @@
           y.log("e4x");
           y.log(y.jsonToXml(revenda));
 
-          response.object =  y.jsonToXml(revenda);
+          response.object = <revenda>y.jsonToXml(revenda)</revenda>;
         ]]>
         </execute>
       </select>
