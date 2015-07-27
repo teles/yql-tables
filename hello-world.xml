@@ -14,24 +14,24 @@
           var urlParaRaspar = "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
           var data = y.rest(urlParaRaspar).accept('text/html').get().response;    
 
-          var xpathMapRevenda = {
+          var revendaXpath = {
               rootElement: "//div[contains(@class, 'filtros-lista')][1]",
               foto: "//div[contains(@class, 'photoRev')]/img/@src",
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
           };
 
-          var revendaRootElement = y.xpath(data, xpathMapRevenda.rootElement);
+          var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
 
           var revenda = {
               id: 3639,
-              nome: y.xpath(revendaRootElement, xpathMapRevenda.nome),
-              endereco: y.xpath(revendaRootElement, xpathMapRevenda.endereco)
+              nome: y.xpath(revendaRootElement, revendaXpath.nome),
+              endereco: y.xpath(revendaRootElement, revendaXpath.endereco)
+              foto: y.xpath(revendaRootElement, revendaXpath.foto)
               // carros: getCarros,
               // telefones: getTelefones,
           }
 
-          y.log(y.jsonToXml(revenda));          
 
           response.object = <revenda>
                                 <foto>{revenda.foto}</foto>
