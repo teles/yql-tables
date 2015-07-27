@@ -35,6 +35,7 @@
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
           revenda.carros = [];
 
+          var carros = [];
 
           // Montando objeto carros
           // y.log("carrosRootElement.childNodes.length: " + carrosRootElement.childNodes.length);
@@ -45,6 +46,7 @@
           // y.log(carrosRootElement.@class.length);
           for each (var carro in carrosRootElement.@rel) {
             y.log(carro);
+            carros.push(carro);
           }
 
 
