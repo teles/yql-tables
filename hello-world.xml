@@ -30,7 +30,7 @@
           revenda.endereco= y.xpath(revendaRootElement, revendaXpath.endereco);
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
 
-          var carrosId = [];
+          var carrosIds = [];
 
           for each (var carroId in revendaXpath.carrosIds) {
             carrosIds.push(carroId);
