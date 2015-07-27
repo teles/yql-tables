@@ -20,7 +20,7 @@
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
               carrosIds: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]",
-              carrosIdsContent: "/@rel"
+              carrosIdsContent: "//@rel"
           };
 
           var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
@@ -50,9 +50,6 @@
           }
           y.log(carros);
 
-
-
-          y.log(carrosIds);
 
           revendaXml = <revenda></revenda>;
           revendaXml.appendChild(<id>{revenda.id}</id>);
