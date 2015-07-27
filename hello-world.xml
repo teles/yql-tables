@@ -39,7 +39,7 @@
 
           revenda.carros = carros;
 
-          y.log(carrosIds.length);
+          y.log(typeof carrosIds);
 
           revendaXml = <revenda></revenda>;
           revendaXml.appendChild(<id>{revenda.id}</id>);
