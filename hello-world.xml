@@ -20,12 +20,14 @@
               foto: "//div[contains(@class, 'photoRev')]/img/@src",
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
-              carros: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]"
+              carros: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]",
+              telefones: "//ul[contains(@class,'exibindo-fone')]"
           };
 
           // Definição dos elementos raiz com dados da revenda e carros
           var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
           var carrosRootElement = y.xpath(data, revendaXpath.carros);
+          var telefonesRootElement = y.xpath(data, revendaXpath.telefones);
 
           // Montando objeto revenda com dados raspados da url
           var revenda = {}
@@ -34,11 +36,17 @@
           revenda.endereco= y.xpath(revendaRootElement, revendaXpath.endereco);
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
           revenda.carros = [];
+          revenda.telefones = [];
 
           // Montando objeto carros
           for each (var carroId in carrosRootElement.@rel) {
             revenda.carros.push(carroId.toString());
           }
+
+          // Montando objeto telefones
+          for each (var carroId in telefonesRootElement.li) {
+            revenda.telefones.push(carroId.toString());
+          }          
 
           // Montando xml com os dados do objeto revenda
           revendaXml = <revenda></revenda>;
@@ -51,6 +59,11 @@
           for each(var carro in revenda.carros) {
             revendaXml.appendChild(<carro>{carro}</carro>);
           }
+
+          // Montando xml com dados dos ids dos telefones
+          for each(var telefone in revenda.telefones) {
+            revendaXml.appendChild(<telefone>{telefone}</telefone>);
+          }          
 
           response.object = revendaXml;
 
