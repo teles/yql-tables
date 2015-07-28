@@ -49,7 +49,8 @@
             carros.push(carro);
           }
 
-
+          y.log(carros.length);
+          y.log(carros);
 
           // Montando xml com os dados do objeto revenda
           revendaXml = <revenda></revenda>;
