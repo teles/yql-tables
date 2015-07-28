@@ -29,7 +29,7 @@
 
           // Montando objeto revenda com dados raspados da url
           var revenda = {}
-          revenda.id = 3639;
+          revenda.id = id;
           revenda.nome= y.xpath(revendaRootElement, revendaXpath.nome);
           revenda.endereco= y.xpath(revendaRootElement, revendaXpath.endereco);
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
