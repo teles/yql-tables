@@ -45,7 +45,7 @@
 
           // Montando objeto telefones
           for each (var telefoneContent in telefonesRootElement.li) {
-            revenda.telefones.push(telefoneContent.innerText.toString());
+            revenda.telefones.push(telefoneContent.innerText);
           }          
 
           // Montando xml com os dados do objeto revenda
