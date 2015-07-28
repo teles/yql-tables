@@ -6,14 +6,15 @@
     </meta>
       <bindings>
         <select produces="XML">
+        <urls>
+          <url>http://www.carrosaojose.com.br/veiculos?revenda_id={id}</url>
+        </urls>
         <inputs>
-          <key id="id" type="xs:string" paramType="variable" required="true"/>
+          <key id="id" type="xs:string" paramType="path" required="true"/>
         </inputs>
         <execute><![CDATA[
-
-          var url = "http://www.carrosaojose.com.br/veiculos?revenda_id="+url;
-          y.log("url da pagina: "+url);
-          var data = y.rest(url).accept('text/html').get().response;    
+          var data = request.accept('text/html').get().response;
+          // var data = y.rest(url).accept('text/html').get().response;    
 
           var revendaXpath = {
               rootElement: "//div[contains(@class, 'filtros-lista')][1]",
