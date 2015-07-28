@@ -45,14 +45,7 @@
 
           // Montando objeto telefones
           for each (var telefoneContent in telefonesRootElement.li) {
-            revenda.telefones.push(telefoneContent.text);
-            y.log("telefoneContent.text: "+ telefoneContent.text);
-            y.log("telefoneContent.innerText: "+ telefoneContent.innerText);
-            y.log("telefoneContent.innerHTML: "+ telefoneContent.innerHTML);
-            y.log("telefoneContent.innerHtml: "+ telefoneContent.innerHtml);
-            // y.log("telefoneContent->content: "+ telefoneContent->content);
-            y.log("telefoneContent.text(): "+ telefoneContent.text());
-            y.log("telefoneContent.content: "+ telefoneContent.content);
+            revenda.telefones.push(telefoneContent.text());
           }          
 
           // Montando xml com os dados do objeto revenda
