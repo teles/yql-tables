@@ -46,7 +46,7 @@
           // y.log(carrosRootElement.@class.length);
           for each (var carro in carrosRootElement.@rel) {
             y.log(carro);
-            carros.push(carro);
+            carros.push(carro.toString());
           }
 
           y.log(carros.length);
