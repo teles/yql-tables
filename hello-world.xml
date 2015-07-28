@@ -10,7 +10,7 @@
           <url>http://www.carrosaojose.com.br/veiculos?revenda_id={id}</url>
         </urls>
         <inputs>
-          <key id="id" type="xs:string" paramType="path" required="true"/>
+          <key id="id" type="xs:string" paramType="variable" required="true"/>
         </inputs>
         <execute><![CDATA[
 
