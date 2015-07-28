@@ -2,17 +2,21 @@
 <table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
     <meta>
         <author>Jota Teles</author>
-        <description>carros</description>
+        <description>carros</description>        
     </meta>
       <bindings>
         <select produces="XML">
         <urls>
-          <url>http://www.carrosaojose.com.br/veiculos?revenda_id=3639</url>
+          <url>http://www.carrosaojose.com.br/veiculos?revenda_id={id}</url>
         </urls>
+        <inputs>
+          <key id="id" type="xs:string" paramType="path" required="true"/>
+        </inputs>
         <execute><![CDATA[
 
-          var urlParaRaspar = "http://www.carrosaojose.com.br/veiculos?revenda_id=3639";
-          var data = y.rest(urlParaRaspar).accept('text/html').get().response;    
+          // var urlParaRaspar = "http://www.carrosaojose.com.br/veiculos?revenda_id={id}";
+          y.log("url da pagina: "+url);
+          var data = y.rest(url).accept('text/html').get().response;    
 
           var revendaXpath = {
               rootElement: "//div[contains(@class, 'filtros-lista')][1]",
@@ -46,10 +50,12 @@
           revendaXml.appendChild(<nome>{revenda.nome}</nome>);
           revendaXml.appendChild(<foto>{revenda.foto}</foto>);
           revendaXml.appendChild(<endereco>{revenda.endereco}</endereco>);
+          
           // Montando xml com dados dos ids dos carros
           for each(var carro in revenda.carros) {
             revendaXml.appendChild(<carro>{carro}</carro>);
           }
+
 
 
           response.object = revendaXml;
