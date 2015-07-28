@@ -35,16 +35,10 @@
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
           revenda.carros = [];
 
-          var carrosIds = [];
-
           // Montando objeto carros
-
           for each (var carroId in carrosRootElement.@rel) {
-            carrosIds.push(carroId.toString());
             revenda.carros.push(carroId.toString());
           }
-
-          y.log(revenda.carros);
 
           // Montando xml com os dados do objeto revenda
           revendaXml = <revenda></revenda>;
@@ -52,6 +46,10 @@
           revendaXml.appendChild(<nome>{revenda.nome}</nome>);
           revendaXml.appendChild(<foto>{revenda.foto}</foto>);
           revendaXml.appendChild(<endereco>{revenda.endereco}</endereco>);
+          // Montando xml com dados dos ids dos carros
+          for each(var carro in revenda.carros) {
+            revendaXml.appendChild(<carro>{carro}</carro>);
+          }
 
 
           response.object = revendaXml;
