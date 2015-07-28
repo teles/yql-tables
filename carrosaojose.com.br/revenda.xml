@@ -59,12 +59,12 @@
           
           // Montando xml com dados dos ids dos carros
           for each(var carro in revenda.carros) {
-            revendaXml.appendChild(<carro>{carro}</carro>);
+            revendaXml.appendChild(<carros>{carro}</carros>);
           }
 
           // Montando xml com dados dos ids dos telefones
           for each(var telefone in revenda.telefones) {
-            revendaXml.appendChild(<telefone>{telefone}</telefone>);
+            revendaXml.appendChild(<telefones>{telefone}</telefones>);
           }          
 
           response.object = revendaXml;
