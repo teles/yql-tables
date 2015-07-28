@@ -35,22 +35,16 @@
           revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
           revenda.carros = [];
 
-          var carros = [];
+          var carrosIds = [];
 
           // Montando objeto carros
-          // y.log("carrosRootElement.childNodes.length: " + carrosRootElement.childNodes.length);
-          // y.log("carrosRootElement.length: " + carrosRootElement.length);
-          // y.log(carrosRootElement);
-          // y.log(carrosRootElement.@class)
 
-          // y.log(carrosRootElement.@class.length);
-          for each (var carro in carrosRootElement.@rel) {
-            y.log(carro);
-            carros.push(carro.toString());
+          for each (var carroId in carrosRootElement.@rel) {
+            carrosIds.push(carroId.toString());
+            revenda.carros.push(carroId.toString());
           }
 
-          y.log(carros.length);
-          y.log(carros);
+          y.log(revenda.carros);
 
           // Montando xml com os dados do objeto revenda
           revendaXml = <revenda></revenda>;
@@ -58,6 +52,7 @@
           revendaXml.appendChild(<nome>{revenda.nome}</nome>);
           revendaXml.appendChild(<foto>{revenda.foto}</foto>);
           revendaXml.appendChild(<endereco>{revenda.endereco}</endereco>);
+
 
           response.object = revendaXml;
 
