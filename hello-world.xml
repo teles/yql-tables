@@ -50,7 +50,7 @@
             y.log("telefoneContent.innerText: "+ telefoneContent.innerText);
             y.log("telefoneContent.innerHTML: "+ telefoneContent.innerHTML);
             y.log("telefoneContent.innerHtml: "+ telefoneContent.innerHtml);
-            y.log("telefoneContent->content: "+ telefoneContent->content);
+            // y.log("telefoneContent->content: "+ telefoneContent->content);
             y.log("telefoneContent.text(): "+ telefoneContent.text());
             y.log("telefoneContent.content: "+ telefoneContent.content);
           }          
