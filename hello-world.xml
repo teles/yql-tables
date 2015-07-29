@@ -8,10 +8,13 @@
     </meta>
       <bindings>
         <select produces="XML">
+        <inputs>
+          <key id="url" type="xs:string" paramType="variable" required="true"/>
+        </inputs>        
         <execute><![CDATA[
-          // var data = request.accept('text/html').get().response;
-          var url = "http://www.carrosaojose.com.br/veiculos/2289233-chevrolet-astra-sedan-2.0-4p-flex-elegance.html?e=1"
-          var data = y.rest(url).accept('text/html').get().response;    
+          var queryString = "?e=1";
+          var urlCompleta = url+queryString;
+          var data = y.rest(urlCompleta).accept('text/html').get().response;    
 
           var carroXpath = {
               nome: "//div[contains(@class, 'nomeVeic')]/div[contains(@class, 'titulo')]",
