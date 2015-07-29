@@ -20,7 +20,7 @@
               combustivelCorQuilometragem: "//div[contains(@class, 'topoDetDesc')]/div[1]",
               opcionais: "//div[contains(@class, 'desc-opcionais-div')]",
               observacoes: "//div[contains(@class, 'observacoes')]//div[contains(@class, 'observacoes')]",
-              fotos: "//a[contains(@class, 'foto-galeria')]",
+              fotos: "//ul[contains(@class, 'ul-lightbox')]//a[contains(@class, 'foto-galeria')]",
           };
 
           // Definição dos elementos raiz com dados do carro
