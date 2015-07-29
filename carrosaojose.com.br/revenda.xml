@@ -54,7 +54,7 @@
           contador = 0;
 
           for each (var carroHref in carrosLinkRootElement.@href) {
-            revenda.carros[contador].href = carroHref.toString();
+            revenda.carros[contador].href = carroHref.toString().split('?')[0];
             contador++;
           }
           contador = 0;          
