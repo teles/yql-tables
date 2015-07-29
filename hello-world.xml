@@ -24,7 +24,7 @@
           };
 
           function _limparECortarOpcionais(texto) {
-            return texto.replace(/(<([^>]+)>)/ig,"").replace("&#13;","").replace(/[^\x00-\x7F]/g, "").split(/(?=[A-Z])/);            
+            return texto.replace(/(<([^>]+)>)/ig,"").replace("&#13;","").replace(/[^\x00-\x7F]/g, "").trim().split(/(?=[A-Z])/);            
           }
 
           // Definição dos elementos raiz com dados do carro
