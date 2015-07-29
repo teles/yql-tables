@@ -44,7 +44,7 @@
           
           // Montando objeto fotos
           for each (var fotoHref in fotos.@href) {
-            carros.fotos.push(fotoHref);
+            carro.fotos.push(fotoHref);
           }
 
           // Montando xml com os dados do objeto revenda
