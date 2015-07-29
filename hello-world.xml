@@ -4,13 +4,13 @@
         <author>Jota Teles (http://www.jotateles.com.br) </author>
         <description>Essa tabela retorna dados gerais sobre uma revenda cadastrada no site www.carrosaojose.com.br</description>        
         <documentationURL> http://github.com/teles/yql-tables</documentationURL>
-        <sampleQuery>SELECT * FROM {table} WHERE id='3639';</sampleQuery>        
+        <sampleQuery></sampleQuery>        
     </meta>
       <bindings>
         <select produces="XML">
         <execute><![CDATA[
           // var data = request.accept('text/html').get().response;
-          var url = "http://www.carrobauru.com.br/veiculos/2289233-chevrolet-astra-sedan-2.0-4p-flex-elegance.html?e=1"
+          var url = "http://www.carrosaojose.com.br/veiculos/2289233-chevrolet-astra-sedan-2.0-4p-flex-elegance.html?e=1"
           var data = y.rest(url).accept('text/html').get().response;    
 
           var carroXpath = {
@@ -23,6 +23,10 @@
               fotos: "//ul[contains(@class, 'ul-lightbox')]//a[contains(@class, 'foto-galeria')]",
           };
 
+          function _limparTagsHtml(texto) {
+            return texto.replace(/(<([^>]+)>)/ig,"");            
+          }
+
           // Definição dos elementos raiz com dados do carro
           var nome = y.xpath(data, carroXpath.nome);
           var ano = y.xpath(data, carroXpath.ano);
@@ -30,7 +34,7 @@
           var combustivelCorQuilometragem = y.xpath(data, carroXpath.combustivelCorQuilometragem);
           var opcionais = y.xpath(data, carroXpath.opcionais);
           var observacoes = y.xpath(data, carroXpath.observacoes);
-          var fotos = y.xpath(data, carroXpath.fotos);
+          var fotos = y.xpath(data, carroXpath.fotos);        
 
           // Montando objeto revenda com dados raspados da url
           var carro = {}
@@ -38,7 +42,7 @@
           carro.ano = ano.toString();
           carro.valor = valor.toString();
           carro.combustivelCorQuilometragem = combustivelCorQuilometragem.toString();
-          carro.opcionais = opcionais.toString();
+          carro.opcionais = _limparTagsHtml(opcionais.toString());
           carro.observacoes = observacoes.toString();
           carro.fotos = [];
           
