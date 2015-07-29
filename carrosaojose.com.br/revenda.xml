@@ -22,14 +22,13 @@
               foto: "//div[contains(@class, 'photoRev')]/img/@src",
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
-              carrosIds: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]",
-              carrosLinks: "//div[contains(@class, 'produto')]//a[contains(@class, 'popupdetalhe')]",
+              carros: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]",
               telefones: "//ul[contains(@class,'exibindo-fone')]"
           };
 
           // Definição dos elementos raiz com dados da revenda e carros
           var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
-          var carrosRootElement = y.xpath(data, revendaXpath.carrosIds);
+          var carrosRootElement = y.xpath(data, revendaXpath.carros);
           var telefonesRootElement = y.xpath(data, revendaXpath.telefones);
 
           // Montando objeto revenda com dados raspados da url
@@ -42,15 +41,13 @@
           revenda.telefones = [];
 
           // Montando objeto carros
-          // for each (var carroId in carrosRootElement.@rel) {
-          //   revenda.carros.push(carroId.toString());
-          // }
-
-          carrosRootElement.@rel.forEach(function (carroId, i) {
-            revenda.carros[i] = {};
-            revenda.carros[i].id = carroId;
-            y.log(carroId);
+          for each (var carroId in carrosRootElement.@rel) {
+            revenda.carros.push(carroId.toString());
           }
+
+          y.log(typeof carrosRootElement.@rel);
+          y.log(carrosRootElement.@rel.length);
+
 
           // Montando objeto telefones
           for each (var telefoneContent in telefonesRootElement.li) {
@@ -65,17 +62,9 @@
           revendaXml.appendChild(<endereco>{revenda.endereco}</endereco>);
           
           // Montando xml com dados dos ids dos carros
-          // for each(var carro in revenda.carros) {            
-          // if (revenda.carros.length > 0) {
-          //   var carrosNode = <carros></carros>;
-
-          //   revenda.carros.forEach(function (carro, i) {
-          //     carrosNode.appendChild(<carro></carro>).appendChild(<id>{carro.id}</id>);
-          //   }
-            // y.log(carrosNode);
-            //revendaXml.appendChild(carrosNode);
-          // };
-
+          for each(var carro in revenda.carros) {
+            revendaXml.appendChild(<carros>{carro}</carros>);
+          }
 
           // Montando xml com dados dos ids dos telefones
           for each(var telefone in revenda.telefones) {
