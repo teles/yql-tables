@@ -76,8 +76,10 @@
             var carrosNode = <carros></carros>;
 
             for each(var carro in revenda.carros) {
-              carrosNode.appendChild(<carro><id>{carro.id}</id></carro>);
-              carrosNode.appendChild(<carro><href>{carro.href}</href></carro>);
+              var carroNode = <carro></carro>;
+              carroNode.appendChild(<id>{carro.id}</id>);
+              carroNode.appendChild(<href>{carro.href}</href>);
+              carrosNode.appendChild(carroNode);
             }            
             revendaXml.appendChild(carrosNode);
           }
