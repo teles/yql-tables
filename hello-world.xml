@@ -24,8 +24,13 @@
           };
 
           function _limparTagsHtml(texto) {
-            return texto.replace(/(<([^>]+)>)/ig,"");            
+            return texto.replace(/(<([^>]+)>)/ig,""),replace("&#13;","").replace("»","");            
           }
+
+          function _splitUpperCase(texto) {
+            return texto.split(/(?=[A-Z])/); 
+          }
+
 
           // Definição dos elementos raiz com dados do carro
           var nome = y.xpath(data, carroXpath.nome);
@@ -42,7 +47,7 @@
           carro.ano = ano.toString();
           carro.valor = valor.toString();
           carro.combustivelCorQuilometragem = combustivelCorQuilometragem.toString();
-          carro.opcionais = _limparTagsHtml(opcionais.toString());
+          carro.opcionais = _splitUpperCase(_limparTagsHtml(opcionais.toString()));
           carro.observacoes = observacoes.toString();
           carro.fotos = [];
           
@@ -57,7 +62,6 @@
           carroXml.appendChild(<ano>{carro.ano}</ano>);
           carroXml.appendChild(<valor>{carro.valor}</valor>);
           carroXml.appendChild(<infos>{carro.combustivelCorQuilometragem}</infos>);
-          carroXml.appendChild(<opcionais>{carro.opcionais}</opcionais>);
           carroXml.appendChild(<observacoes>{carro.observacoes}</observacoes>);
 
           if(carro.fotos.length > 0) {
@@ -67,6 +71,14 @@
             }            
             carroXml.appendChild(fotosNode);
           }
+
+          if(carro.opcionais.length > 0) {
+            opcionaisNode = <opcionais></opcionais>;
+            for each(var opcional in carro.opcionais) {
+              opcionaisNode.appendChild(<opcional>{opcional}</opcional>);
+            }            
+            carroXml.appendChild(opcionaisNode);
+          }          
           
           response.object = carroXml;
 
