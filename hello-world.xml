@@ -23,14 +23,9 @@
               fotos: "//ul[contains(@class, 'ul-lightbox')]//a[contains(@class, 'foto-galeria')]",
           };
 
-          function _limparTagsHtml(texto) {
-            return texto.replace(/(<([^>]+)>)/ig,"").replace("&#13;","").replace("&#187;","");            
+          function _limparECortarOpcionais(texto) {
+            return texto.replace(/(<([^>]+)>)/ig,"").replace("&#13;","").replace(/[^\x00-\x7F]/g, "").split(/(?=[A-Z])/);            
           }
-
-          function _splitUpperCase(texto) {
-            return texto.split(/(?=[A-Z])/); 
-          }
-
 
           // Definição dos elementos raiz com dados do carro
           var nome = y.xpath(data, carroXpath.nome);
@@ -47,7 +42,7 @@
           carro.ano = ano.toString();
           carro.valor = valor.toString();
           carro.combustivelCorQuilometragem = combustivelCorQuilometragem.toString();
-          carro.opcionais = _splitUpperCase(_limparTagsHtml(opcionais.toString()));
+          carro.opcionais =  _limparECortarOpcionais(opcionais.toString());
           carro.observacoes = observacoes.toString();
           carro.fotos = [];
           
