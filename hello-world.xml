@@ -13,61 +13,37 @@
         </inputs>
         <execute><![CDATA[
           // var data = request.accept('text/html').get().response;
-          var url = "http://www.carrosaojose.com.br/veiculos?revenda_id=" + id;
+          var url = "http://www.carrobauru.com.br/veiculos/2289233-chevrolet-astra-sedan-2.0-4p-flex-elegance.html?e=1"
           var data = y.rest(url).accept('text/html').get().response;    
 
-
-          var revendaXpath = {
-              rootElement: "//div[contains(@class, 'filtros-lista')][1]",
-              foto: "//div[contains(@class, 'photoRev')]/img/@src",
-              nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
-              endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
-              carros: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]",
-              telefones: "//ul[contains(@class,'exibindo-fone')]"
+          var carroXpath = {
+              nome: "//div[contains(@class, 'nomeVeic')]/div[contains(@class, 'titulo')]",
+              ano: "//div[contains(@class, 'nomeVeic')]/div[contains(@class, 'ano')]",
+              valor: "//div[contains(@class, 'valorVeic')]",
+              combustivelCorQuilometragem: "//div[contains(@class, 'topoDetDesc')]"
           };
 
-          // Definição dos elementos raiz com dados da revenda e carros
-          var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
-          var carrosRootElement = y.xpath(data, revendaXpath.carros);
-          var telefonesRootElement = y.xpath(data, revendaXpath.telefones);
+          // Definição dos elementos raiz com dados do carro
+          var nome = y.xpath(data, carroXpath.nome);
+          var ano = y.xpath(data, carroXpath.ano);
+          var valor = y.xpath(data, carroXpath.valor);
+          var combustivelCorQuilometragem = y.xpath(data, carroXpath.combustivelCorQuilometragem);
 
           // Montando objeto revenda com dados raspados da url
-          var revenda = {}
-          revenda.id = id;
-          revenda.nome= y.xpath(revendaRootElement, revendaXpath.nome);
-          revenda.endereco= y.xpath(revendaRootElement, revendaXpath.endereco);
-          revenda.foto= y.xpath(revendaRootElement, revendaXpath.foto);
-          revenda.carros = [];
-          revenda.telefones = [];
-
-          // Montando objeto carros
-          for each (var carroId in carrosRootElement.@rel) {
-            revenda.carros.push(carroId.toString());
-          }
-
-          // Montando objeto telefones
-          for each (var telefoneContent in telefonesRootElement.li) {
-            revenda.telefones.push(telefoneContent.text());
-          }          
+          var carro = {}
+          carro.nome = nome.toString();
+          carro.ano = ano.toString();
+          carro.valor = valor.toString();
+          carro.combustivelCorQuilometragem = combustivelCorQuilometragem.toString();
 
           // Montando xml com os dados do objeto revenda
-          revendaXml = <revenda></revenda>;
-          revendaXml.appendChild(<id>{revenda.id}</id>);
-          revendaXml.appendChild(<nome>{revenda.nome}</nome>);
-          revendaXml.appendChild(<foto>{revenda.foto}</foto>);
-          revendaXml.appendChild(<endereco>{revenda.endereco}</endereco>);
+          carroXml = <carro></carro>;
+          carroXml.appendChild(<nome>{carro.nome}</nome>);
+          carroXml.appendChild(<ano>{carro.ano}</ano>);
+          carroXml.appendChild(<valor>{carro.valor}</valor>);
+          carroXml.appendChild(<infos>{carro.combustivelCorQuilometragem}</infos>);
           
-          // Montando xml com dados dos ids dos carros
-          for each(var carro in revenda.carros) {
-            revendaXml.appendChild(<carro>{carro}</carro>);
-          }
-
-          // Montando xml com dados dos ids dos telefones
-          for each(var telefone in revenda.telefones) {
-            revendaXml.appendChild(<telefone>{telefone}</telefone>);
-          }          
-
-          response.object = revendaXml;
+          response.object = carroXml;
 
         ]]>
         </execute>
