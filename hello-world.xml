@@ -24,7 +24,7 @@
           };
 
           function _limparTagsHtml(texto) {
-            return texto.replace(/(<([^>]+)>)/ig,""),replace("&#13;","").replace("»","");            
+            return texto.replace(/(<([^>]+)>)/ig,"").replace("&#13;","").replace("»","");            
           }
 
           function _splitUpperCase(texto) {
