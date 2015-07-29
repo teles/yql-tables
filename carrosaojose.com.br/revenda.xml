@@ -23,12 +23,14 @@
               nome: "//div[contains(@class, 'detRev')][1]//span[contains(@class, 'titleRev')]/text()",
               endereco: "//div[contains(@class, 'endereco')][1]/p//text()",
               carros: "//div[contains(@class, 'produto')]//a[contains(@class, 'favoritlink')]",
+              carrosLinks: "//div[contains(@class, 'produto')]//div[contains(@class, 'titulo')]/a",
               telefones: "//ul[contains(@class,'exibindo-fone')]"
           };
 
           // Definição dos elementos raiz com dados da revenda e carros
           var revendaRootElement = y.xpath(data, revendaXpath.rootElement);
           var carrosRootElement = y.xpath(data, revendaXpath.carros);
+          var carrosLinkRootElement = y.xpath(data, revendaXpath.carrosLinks);
           var telefonesRootElement = y.xpath(data, revendaXpath.telefones);
 
           // Montando objeto revenda com dados raspados da url
@@ -51,6 +53,12 @@
           }
           contador = 0;
 
+          for each (var carroHref in carrosLinkRootElement.@href) {
+            revenda.carros[contador].href = carroHref.toString();
+            contador++;
+          }
+          contador = 0;          
+
           // Montando objeto telefones
           for each (var telefoneContent in telefonesRootElement.li) {
             revenda.telefones.push(telefoneContent.text());
@@ -68,7 +76,8 @@
             var carrosNode = <carros></carros>;
 
             for each(var carro in revenda.carros) {
-              carrosNode.appendChild(<carro>{carro.id}</carro>);
+              carrosNode.appendChild(<carro><id>{carro.id}</id></carro>);
+              carrosNode.appendChild(<carro><href>{carro.href}</href></carro>);
             }            
             revendaXml.appendChild(carrosNode);
           }
