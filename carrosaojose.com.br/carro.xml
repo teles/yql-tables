@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
+    <meta>
+        <author>Jota Teles (http://www.jotateles.com.br) </author>
+        <description>Essa tabela retorna dados gerais sobre um carro cadastrado no site www.carrosaojose.com.br, dada a url da página desse carro.</description>        
+        <documentationURL> http://github.com/teles/yql-tables</documentationURL>
+        <sampleQuery>select * from carro where url="http://www.carrosaojose.com.br/veiculos/2250047-volkswagen-gol-1.0-16v-4p-1998.html"</sampleQuery>        
+    </meta>
+      <bindings>
+        <select produces="XML">
+        <inputs>
+          <key id="url" type="xs:string" paramType="variable" required="true"/>
+        </inputs>        
+        <execute><![CDATA[
+          var queryString = "?e=1";
+          var urlCompleta = url+queryString;
+          var data = y.rest(urlCompleta).accept('text/html').get().response;    
+
+          var carroXpath = {
+              nome: "//div[contains(@class, 'nomeVeic')]/div[contains(@class, 'titulo')]",
+              ano: "//div[contains(@class, 'nomeVeic')]/div[contains(@class, 'ano')]",
+              valor: "//div[contains(@class, 'valorVeic')]",
+              combustivelCorQuilometragem: "//div[contains(@class, 'topoDetDesc')]/div[1]",
+              opcionais: "//div[contains(@class, 'desc-opcionais-div')]/text()",
+              observacoes: "//div[contains(@class, 'observacoes')]//div[contains(@class, 'observacoes')]",
+              fotos: "//ul[contains(@class, 'ul-lightbox')]//a[contains(@class, 'foto-galeria')]",
+          };
+
+          function _limparECortarOpcionais(texto) {
+            return texto.replace(/(<([^>]+)>)/ig,"").replace("&#13;","").replace(/[^\x00-\x7F]/g, "").trim().split(/(?=[A-Z])/);            
+          }
+
+          function _limparObservacoes(texto) {
+            return texto.replace(/(<([^>]+)>)/ig,"").replace("&#13;","").replace(/[^\x00-\x7F]/g, "").trim();
+          }
+
+          // Definição dos elementos raiz com dados do carro
+          var nome = y.xpath(data, carroXpath.nome);
+          var ano = y.xpath(data, carroXpath.ano);
+          var valor = y.xpath(data, carroXpath.valor);
+          var combustivelCorQuilometragem = y.xpath(data, carroXpath.combustivelCorQuilometragem).split("-");
+          var combustivel = combustivelCorQuilometragem[0];
+          var cor = combustivelCorQuilometragem[1];
+          var quilometragem = combustivelCorQuilometragem[2];          
+          var opcionais = y.xpath(data, carroXpath.opcionais);
+          var observacoes = y.xpath(data, carroXpath.observacoes);
+          var fotos = y.xpath(data, carroXpath.fotos);        
+
+          // Montando objeto revenda com dados raspados da url
+          var carro = {}
+          carro.nome = nome.toString();
+          carro.ano = ano.toString();
+          carro.valor = valor.toString();
+          carro.combustivel = combustivel;
+          carro.cor = cor;          
+          carro.quilometragem = quilometragem;          
+          carro.opcionais =  _limparECortarOpcionais(opcionais.toString());
+          carro.observacoes = _limparObservacoes(observacoes.toString());
+          carro.fotos = [];
+          
+          // Montando objeto fotos
+          for each (var fotoHref in fotos.@href) {
+            carro.fotos.push(fotoHref);
+          }
+
+          // Montando xml com os dados do objeto revenda
+          carroXml = <carro></carro>;
+          carroXml.appendChild(<nome>{carro.nome}</nome>);
+          carroXml.appendChild(<ano>{carro.ano}</ano>);
+          carroXml.appendChild(<valor>{carro.valor}</valor>);
+          carroXml.appendChild(<combustivel>{carro.combustivel}</combustivel>);
+          carroXml.appendChild(<cor>{carro.cor}</cor>);
+          carroXml.appendChild(<quilometragem>{carro.quilometragem}</quilometragem>);
+          carroXml.appendChild(<observacoes>{carro.observacoes}</observacoes>);
+
+          if(carro.fotos.length > 0) {
+            fotosNode = <fotos></fotos>;
+            for each(var foto in carro.fotos) {
+              fotosNode.appendChild(<foto>{foto}</foto>);
+            }            
+            carroXml.appendChild(fotosNode);
+          }
+
+          if(carro.opcionais.length > 0) {
+            opcionaisNode = <opcionais></opcionais>;
+            for each(var opcional in carro.opcionais) {
+              opcionaisNode.appendChild(<opcional>{opcional}</opcional>);
+            }            
+            carroXml.appendChild(opcionaisNode);
+          }          
+          
+          response.object = carroXml;
+
+        ]]>
+        </execute>
+      </select>
+      </bindings>
+</table>
