@@ -64,8 +64,13 @@
           revendaXml.appendChild(<endereco>{revenda.endereco}</endereco>);
           
           // Montando xml com dados dos ids dos carros
-          for each(var carro in revenda.carros) {
-            revendaXml.appendChild(<carros>{carro.id}</carros>);
+          if(revenda.carros.length > 0){
+            var carrosNode = <carros></carros>;
+
+            for each(var carro in revenda.carros) {
+              carrosNode.appendChild(<carro>{carro.id}</carro>);
+            }            
+            revendaXml.appendChild(carrosNode);
           }
 
           // Montando xml com dados dos ids dos telefones
