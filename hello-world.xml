@@ -34,7 +34,7 @@
           carro.nome = nome.toString();
           carro.ano = ano.toString();
           carro.valor = valor.toString();
-          carro.combustivelCorQuilometragem = combustivelCorQuilometragem.toString();
+          carro.combustivelCorQuilometragem = combustivelCorQuilometragem.text().toString();
 
           // Montando xml com os dados do objeto revenda
           carroXml = <carro></carro>;
