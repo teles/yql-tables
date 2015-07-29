@@ -31,7 +31,10 @@
           var nome = y.xpath(data, carroXpath.nome);
           var ano = y.xpath(data, carroXpath.ano);
           var valor = y.xpath(data, carroXpath.valor);
-          var combustivelCorQuilometragem = y.xpath(data, carroXpath.combustivelCorQuilometragem);
+          var combustivelCorQuilometragem = y.xpath(data, carroXpath.combustivelCorQuilometragem).split("-");
+          var combustivel = combustivelCorQuilometragem[0];
+          var cor = combustivelCorQuilometragem[1];
+          var quilometragem = combustivelCorQuilometragem[2];          
           var opcionais = y.xpath(data, carroXpath.opcionais);
           var observacoes = y.xpath(data, carroXpath.observacoes);
           var fotos = y.xpath(data, carroXpath.fotos);        
@@ -41,7 +44,9 @@
           carro.nome = nome.toString();
           carro.ano = ano.toString();
           carro.valor = valor.toString();
-          carro.combustivelCorQuilometragem = combustivelCorQuilometragem.toString();
+          carro.combustivel = combustivel;
+          carro.cor = cor;          
+          carro.quilometragem = quilometragem;          
           carro.opcionais =  _limparECortarOpcionais(opcionais.toString());
           carro.observacoes = observacoes.toString();
           carro.fotos = [];
@@ -56,7 +61,9 @@
           carroXml.appendChild(<nome>{carro.nome}</nome>);
           carroXml.appendChild(<ano>{carro.ano}</ano>);
           carroXml.appendChild(<valor>{carro.valor}</valor>);
-          carroXml.appendChild(<infos>{carro.combustivelCorQuilometragem}</infos>);
+          carroXml.appendChild(<combustivel>{carro.combustivel}</combustivel>);
+          carroXml.appendChild(<cor>{carro.cor}</cor>);
+          carroXml.appendChild(<quilometragem>{carro.quilometragem}</quilometragem>);
           carroXml.appendChild(<observacoes>{carro.observacoes}</observacoes>);
 
           if(carro.fotos.length > 0) {
