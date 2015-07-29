@@ -49,6 +49,7 @@
           carrosRootElement.@rel.forEach(function (carroId, i) {
             revenda.carros[i] = {};
             revenda.carros[i].id = carroId;
+            y.log(carroId);
           }
 
           // Montando objeto telefones
@@ -65,15 +66,15 @@
           
           // Montando xml com dados dos ids dos carros
           // for each(var carro in revenda.carros) {            
-          if (revenda.carros.length > 0) {
-            var carrosNode = <carros></carros>;
+          // if (revenda.carros.length > 0) {
+          //   var carrosNode = <carros></carros>;
 
-            revenda.carros.forEach(function (carro, i) {
-              carrosNode.appendChild(<carro></carro>).appendChild(<id>{carro.id}</id>);
-            }
-            y.log(carrosNode);
+          //   revenda.carros.forEach(function (carro, i) {
+          //     carrosNode.appendChild(<carro></carro>).appendChild(<id>{carro.id}</id>);
+          //   }
+            // y.log(carrosNode);
             //revendaXml.appendChild(carrosNode);
-          };
+          // };
 
 
           // Montando xml com dados dos ids dos telefones
