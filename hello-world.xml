@@ -8,9 +8,6 @@
     </meta>
       <bindings>
         <select produces="XML">
-        <inputs>
-          <key id="id" type="xs:string" paramType="variable" required="true"/>
-        </inputs>
         <execute><![CDATA[
           // var data = request.accept('text/html').get().response;
           var url = "http://www.carrobauru.com.br/veiculos/2289233-chevrolet-astra-sedan-2.0-4p-flex-elegance.html?e=1"
@@ -20,7 +17,8 @@
               nome: "//div[contains(@class, 'nomeVeic')]/div[contains(@class, 'titulo')]",
               ano: "//div[contains(@class, 'nomeVeic')]/div[contains(@class, 'ano')]",
               valor: "//div[contains(@class, 'valorVeic')]",
-              combustivelCorQuilometragem: "//div[contains(@class, 'topoDetDesc')]/div[1]"
+              combustivelCorQuilometragem: "//div[contains(@class, 'topoDetDesc')]/div[1]",
+              opcionais: "//div[contains(@class, 'desc-opcionais-div')]",
           };
 
           // Definição dos elementos raiz com dados do carro
@@ -28,6 +26,7 @@
           var ano = y.xpath(data, carroXpath.ano);
           var valor = y.xpath(data, carroXpath.valor);
           var combustivelCorQuilometragem = y.xpath(data, carroXpath.combustivelCorQuilometragem);
+          var opcionais = y.xpath(data, carroXpath.opcionais);
 
           // Montando objeto revenda com dados raspados da url
           var carro = {}
@@ -35,6 +34,7 @@
           carro.ano = ano.toString();
           carro.valor = valor.toString();
           carro.combustivelCorQuilometragem = combustivelCorQuilometragem.toString();
+          carro.opcionais = opcionais.toString();
 
           // Montando xml com os dados do objeto revenda
           carroXml = <carro></carro>;
@@ -42,6 +42,7 @@
           carroXml.appendChild(<ano>{carro.ano}</ano>);
           carroXml.appendChild(<valor>{carro.valor}</valor>);
           carroXml.appendChild(<infos>{carro.combustivelCorQuilometragem}</infos>);
+          carroXml.appendChild(<opcionais>{carro.opcionais}</opcionais>);
           
           response.object = carroXml;
 
