@@ -18,7 +18,7 @@
               ano: "//div[contains(@class, 'nomeVeic')]/div[contains(@class, 'ano')]",
               valor: "//div[contains(@class, 'valorVeic')]",
               combustivelCorQuilometragem: "//div[contains(@class, 'topoDetDesc')]/div[1]",
-              opcionais: "//div[contains(@class, 'desc-opcionais-div')]",
+              opcionais: "//div[contains(@class, 'desc-opcionais-div')]/text()",
               observacoes: "//div[contains(@class, 'observacoes')]//div[contains(@class, 'observacoes')]",
               fotos: "//ul[contains(@class, 'ul-lightbox')]//a[contains(@class, 'foto-galeria')]",
           };
