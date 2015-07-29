@@ -71,7 +71,8 @@
             revenda.carros.forEach(function (carro, i) {
               carrosNode.appendChild(<carro></carro>).appendChild(<id>{carro.id}</id>);
             }
-            revendaXml.appendChild(carrosNode);
+            y.log(carrosNode);
+            //revendaXml.appendChild(carrosNode);
           };
 
 
