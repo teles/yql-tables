@@ -85,9 +85,12 @@
           }
 
           // Montando xml com dados dos ids dos telefones
+          var telefonesNode = <telefones></telefones>;
+
           for each(var telefone in revenda.telefones) {
-            revendaXml.appendChild(<telefones>{telefone}</telefones>);
+            telefonesNode.appendChild(<telefone>{telefone}</telefone>);
           }          
+          revendaXml.appendChild(telefonesNode);
 
           response.object = revendaXml;
 
