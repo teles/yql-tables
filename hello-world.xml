@@ -19,6 +19,8 @@
               valor: "//div[contains(@class, 'valorVeic')]",
               combustivelCorQuilometragem: "//div[contains(@class, 'topoDetDesc')]/div[1]",
               opcionais: "//div[contains(@class, 'desc-opcionais-div')]",
+              observacoes: "//div[contains(@class, 'observacoes')]//div[contains(@class, 'observacoes')]",
+              fotos: "//a[contains(@class, 'foto-galeria')]",
           };
 
           // Definição dos elementos raiz com dados do carro
@@ -27,6 +29,8 @@
           var valor = y.xpath(data, carroXpath.valor);
           var combustivelCorQuilometragem = y.xpath(data, carroXpath.combustivelCorQuilometragem);
           var opcionais = y.xpath(data, carroXpath.opcionais);
+          var observacoes = y.xpath(data, carroXpath.observacoes);
+          var fotos = y.xpath(data, carroXpath.fotos);
 
           // Montando objeto revenda com dados raspados da url
           var carro = {}
@@ -35,6 +39,13 @@
           carro.valor = valor.toString();
           carro.combustivelCorQuilometragem = combustivelCorQuilometragem.toString();
           carro.opcionais = opcionais.toString();
+          carro.observacoes = observacoes.toString();
+          carro.fotos = [];
+          
+          // Montando objeto fotos
+          for each (var fotoHref in fotos.@href) {
+            carros.fotos.push(fotoHref);
+          }
 
           // Montando xml com os dados do objeto revenda
           carroXml = <carro></carro>;
@@ -43,6 +54,15 @@
           carroXml.appendChild(<valor>{carro.valor}</valor>);
           carroXml.appendChild(<infos>{carro.combustivelCorQuilometragem}</infos>);
           carroXml.appendChild(<opcionais>{carro.opcionais}</opcionais>);
+          carroXml.appendChild(<observacoes>{carro.observacoes}</observacoes>);
+
+          if(carro.fotos.length > 0) {
+            fotosNode = <fotos></fotos>;
+            for each(var foto in carro.fotos) {
+              fotosNode.appendChild(<foto>{foto}</foto>);
+            }            
+            carroXml.appendChild(fotosNode);
+          }
           
           response.object = carroXml;
 
