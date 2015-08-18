@@ -4,7 +4,7 @@ Os arquivos xml contidos nesse diretório contém tabelas yql que descrevem info
 
 ## O que é uma tabela YQL?
 
-Uma tabela YQL é um arquivo xml lido pelo [YQL](https://developer.yahoo.com/yql/console/), que descreve um certo tipo de informação disponível na internet e o disponibiliza acesso a essa informação através de uma sintaxe muito parecida com o SQL.
+Uma tabela YQL é um arquivo xml lido pelo [YQL](https://developer.yahoo.com/yql/console/), que descreve um certo tipo de informação disponível na internet e disponibiliza acesso a essa informação através de uma sintaxe muito parecida com o SQL.
 Isto é, com YQL é possível criar queries do tipo, "SELECT * FROM CARROS" onde CARROS é uma tabela YQL.
 
 ## Url das tabelas "revenda" e "carros"
