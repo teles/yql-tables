@@ -21,15 +21,13 @@
           // Definição dos elementos raiz com dados das tabelas
           var tablesElements = y.xpath(data, colorXpath.tablesElements);
 
-          // Montando objeto revenda com dados raspados da url
           var cores = {}
           cores.quantidadetabelas = tablesElements.length;
 
           var contador = 0;
 
-          // Montando xml com os dados do objeto revenda
           coresXml = <cores></cores>;
-          coresXml.appendChild(<quantidade>{revenda.id}</quantidade>);
+          coresXml.appendChild(<quantidade>{cores.quantidadetabelas}</quantidade>);
 
           response.object = coresXml;
 
