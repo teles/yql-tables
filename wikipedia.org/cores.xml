@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
+    <meta>
+        <author>Jota Teles - http://www.jotateles.com.br </author>
+        <description>Essa tabela retorna dados sobre cores extraídos de https://pt.wikipedia.org/wiki/Lista_de_cores</description>
+        <documentationURL> http://github.com/teles/yql-tables</documentationURL>
+        <sampleQuery>SELECT * FROM cores;</sampleQuery>
+    </meta>
+      <bindings>
+        <select produces="XML">
+        <execute><![CDATA[
+          // var data = request.accept('text/html').get().response;
+          var url = "https://pt.wikipedia.org/wiki/Lista_de_cores";
+          var data = y.rest(url).accept('text/html').get().response;
+
+
+          var colorXpath = {
+              tablesElements: "//table[contains(@id, 'toc')]",
+          };
+
+          // Definição dos elementos raiz com dados das tabelas
+          var tablesElements = y.xpath(data, colorXpath.tablesElements);
+
+          // Montando objeto revenda com dados raspados da url
+          var cores = {}
+          cores.quantidadetabelas = tablesElements.length;
+
+          var contador = 0;
+
+          // Montando xml com os dados do objeto revenda
+          coresXml = <cores></cores>;
+          coresXml.appendChild(<quantidade>{revenda.id}</quantidade>);
+
+          response.object = coresXml;
+
+        ]]>
+        </execute>
+      </select>
+      </bindings>
+</table>
