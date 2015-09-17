@@ -9,27 +9,57 @@
       <bindings>
         <select produces="XML">
         <execute><![CDATA[
-          // var data = request.accept('text/html').get().response;
           var url = "https://pt.wikipedia.org/wiki/Lista_de_cores";
           var data = y.rest(url).accept('text/html').get().response;
 
-
-          var colorXpath = {
-              tablesElements: "//table[contains(@id, 'toc')]",
+          var colorsXpath = {
+              tableRowElements: "//table[contains(@id, 'toc')]//tbody//tr"
           };
 
-          // Definição dos elementos raiz com dados das tabelas
-          var tablesElements = y.xpath(data, colorXpath.tablesElements);
+          var tableRowElements = y.xpath(data, colorsXpath.tableRowElements);
+          var rowsXML = new XML("<results>"+tableRowElements+"</results>");
+          var rowsObject = y.xmlToJson(rowsXML);
+          var rows = rowsObject.results.tr;
 
-          var cores = {}
-          cores.quantidadetabelas = tablesElements.length;
+          var cores = <cores></cores>;
 
-          var contador = 0;
+          for (var i = 0; i < rows.length; i++) {
+            var columns = rows[i].td;
+            var cor = <cor></cor>;
 
-          coresXml = <cores></cores>;
-          coresXml.appendChild(<quantidade>{cores.quantidadetabelas}</quantidade>);
+            // Pegando o nome em portugues da cor
+            if(typeof rows[i].th.a !== "undefined") {
+              var nome = rows[i].th.a.content;
+            }
+            else {
+              var nome = rows[i].th.content;
+            }
+            var nomeAttribute = <nome>{nome}</nome>;
+            cor.appendChild(nomeAttribute);
 
-          response.object = coresXml;
+            if(typeof columns !== "undefined") {
+              // y.log(columns);
+              for (var j=0; j < columns.length; j++){
+                // Pegando o hexa da cor
+                var hexa = columns[1].content;
+                var hexaAttribute = <hexadecimal>{hexa}</hexadecimal>;
+              }
+              cor.appendChild(hexaAttribute);
+              for (var j=0; j < columns.length; j++){
+                // Pegando o nome ingles da cor
+                var notation = columns[8].content;
+                if(typeof notation === "undefined"){
+                  var notation = "undefined";
+                }
+                var notationAttribute = <notacao>{notation}</notacao>;
+              }
+              cor.appendChild(notationAttribute);
+              cores.appendChild(cor);
+            }
+          }
+          // y.log(cores);
+
+          response.object = cores;
 
         ]]>
         </execute>
