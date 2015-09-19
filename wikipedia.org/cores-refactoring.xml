@@ -28,8 +28,8 @@
         function ListaDeCores(data){
             var data = this.data;
             
-            var xpath = {
-                rows: "//table[contains(@id, 'toc')]//tbody//tr",
+            function xpathToGetRows(){
+                return "//table[contains(@id, 'toc')]//tbody//tr";
             }
 
             var Cor = function(nome, hexadecimal, nomecss){
@@ -38,37 +38,33 @@
                 this.nomecss = nomecss;
             }
 
-            var model = {
-                xpath: xpath,
-                rows: getRowsFromTable,
+            function getJsonFromTable(){
+                return y.xmlToJson(new XML("<data>"+y.xpath(data, xpathToGetRows())+"</data>"));                
             }
 
-            function getRowsFromTable(){
-                return new XML("<data>"+y.xpath(data, model.xpath.rows)+"</data>");                
+            var rows = getJsonFromTable().data.tr;
+            
+            var i = 0;
+            for(var key in rows) {
+               if(i < 10){
+                y.log(rows[key].th);
+               }
+               i++
             }
 
-            function _getColorNameFromRow(row){
-                if(row.th.a.text().toString().length > 0){
-                    return row.th.a.text();
-                }
-                else {
-                    return row.th.text();
-                }
-            }
+            // var cores = [];
 
-            var cores = [];
+            // for(var i=1; i<model.rows().tr.length(); i++){
+            //     var row = model.rows().tr[i];
+            //     var nome = _getColorNameFromRow(row);
+            //     var hexadecimal = row.td[1];
+            //     var nomecss = row.td[8];
+            //     var cor = new Cor(nome, hexadecimal, nomecss);
+            //     cores.push(cor);
+            // }
+            // y.log(cores);
 
-            for(var i=1; i<model.rows().tr.length(); i++){
-                var row = model.rows().tr[i];
-                var nome = _getColorNameFromRow(row);
-                var hexadecimal = row.td[1];
-                var nomecss = row.td[8];
-                var cor = new Cor(nome, hexadecimal, nomecss);
-                cores.push(cor);
-            }
-            y.log(cores);
-
-            return model;
+            return rows;
         }
 
         var url = "https://pt.wikipedia.org/wiki/Lista_de_cores";
