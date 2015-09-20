@@ -43,14 +43,23 @@
             }
 
             var rows = getJsonFromTable().data.tr;
+            // y.log("antes do splice");
+            // y.log(rows);
+            rows = rows.slice(1,-1);
+            // y.log("depois do splice");
+            // y.log(rows);
+            
             
             var i = 0;
             for(var key in rows) {
                if(i < 10){
-                y.log(rows[key].th);
+                var nome = typeof rows[key].th.a !== "undefined" ? rows[key].th.a.content : rows[key].th.content;
+                var hexadecimal = typeof rows[key].td !== "undefined" ? rows[key].td[8].content : 'undefined';
+                y.log(hexadecimal);
                }
                i++
             }
+
 
             // var cores = [];
 
