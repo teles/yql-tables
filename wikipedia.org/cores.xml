@@ -18,12 +18,12 @@
         //    <a class="mw-redirect" href="/wiki/%C3%81gua_(cor)" title="Água (cor)">Água</a> 
         //   </th> <td style="background-color: #00FFFF"/> 
         //   <td style="font-family: monospace">#00FFFF</td> 
-        //   <td style="text-align: right">0</td> <!-- R -->
-        //   <td style="text-align: right">255</td> <!-- G -->
-        //   <td style="text-align: right">255</td> <!-- B -->
-        //   <td style="text-align: right">180°</td> <!-- H -->
-        //   <td style="text-align: right">100%</td> <!-- S -->
-        //   <td style="text-align: right">100%</td> <!-- V -->
+        //   <td style="text-align: right">0</td> <!-- RED -->
+        //   <td style="text-align: right">255</td> <!-- GREEN -->
+        //   <td style="text-align: right">255</td> <!-- BLUE -->
+        //   <td style="text-align: right">180°</td> <!-- HUE -->
+        //   <td style="text-align: right">100%</td> <!-- SATURATION -->
+        //   <td style="text-align: right">100%</td> <!-- VALUE -->
         //   <td style="font-family: monospace">aqua</td> 
         // </tr>
 
@@ -34,11 +34,16 @@
                 return '//table[@id="toc"]/tbody/tr';
             }
 
-
-            var Cor = function(nome, hexadecimal, nomecss){
+            var Cor = function(nome, hexadecimal, red, green, blue, hue, saturation, value, nomecss){
                 this.nome = nome;
                 this.hexadecimal = hexadecimal;
                 this.nomecss = nomecss;
+                this.red = red;
+                this.green = green;
+                this.blue = blue;
+                this.hue = hue;
+                this.saturation = saturation;
+                this.value = value;
             }
 
             function getJsonFromTable(){
@@ -52,10 +57,17 @@
                 var row = rows[key];
                 var nome = typeof row.th.a !== "undefined" ? row.th.a.content : row.th.content;
                 var hexadecimal = typeof row.td !== "undefined" ? row.td[1].content : 'undefined';
+                var red = typeof row.td !== "undefined" ? row.td[2].content : 'undefined';
+                var green = typeof row.td !== "undefined" ? row.td[3].content : 'undefined';
+                var blue = typeof row.td !== "undefined" ? row.td[4].content : 'undefined';
+                var hue = typeof row.td !== "undefined" ? row.td[5].content : 'undefined';
+                var saturation = typeof row.td !== "undefined" ? row.td[6].content : 'undefined';
+                var value = typeof row.td !== "undefined" ? row.td[7].content : 'undefined';
                 var nomecss = typeof row.td !== "undefined" ? row.td[8].content : 'undefined';
                 // Evita que cores sem nome sejam exibidas no resultado
                 if(typeof nome !== "undefined"){
-                  var cor = new Cor(nome, hexadecimal, nomecss);                                  
+                  
+                  var cor = new Cor(nome, hexadecimal, red, green, blue, hue, saturation, value, nomecss);                                  
                   cores.push(cor);
                 }
             }
@@ -73,9 +85,21 @@
             var corXml = <cor></cor>;
             var nomeXml = <nome>{cor.nome}</nome>;
             var hexadecimalXml = <hexadecimal>{cor.hexadecimal}</hexadecimal>;
+            var redXml = <red>{cor.red}</red>;
+            var greenXml = <green>{cor.green}</green>;
+            var blueXml = <blue>{cor.blue}</blue>;
+            var hueXml = <hue>{cor.hue}</hue>;
+            var saturationXml = <saturation>{cor.saturation}</saturation>;
+            var valueXml = <value>{cor.value}</value>;
             var nomecssXml = <nomecss>{cor.nomecss}</nomecss>;
             corXml.appendChild(nomeXml);
             corXml.appendChild(hexadecimalXml);
+            corXml.appendChild(redXml);
+            corXml.appendChild(greenXml);
+            corXml.appendChild(blueXml);
+            corXml.appendChild(hueXml);
+            corXml.appendChild(saturationXml);
+            corXml.appendChild(valueXml);
             corXml.appendChild(nomecssXml);
             coresXml.appendChild(corXml);
         }
