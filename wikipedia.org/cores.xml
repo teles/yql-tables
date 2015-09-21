@@ -3,63 +3,84 @@
     <meta>
         <author>Jota Teles - http://www.jotateles.com.br </author>
         <description>Essa tabela retorna dados sobre cores extraídos de https://pt.wikipedia.org/wiki/Lista_de_cores</description>
-        <documentationURL> http://github.com/teles/yql-tables</documentationURL>
-        <sampleQuery>SELECT * FROM cores;</sampleQuery>
+        <documentationURL> https://github.com/teles/yql-tables/tree/master/wikipedia.org</documentationURL>
+        <sampleQuery>select * from cores;</sampleQuery>
+        <sampleQuery>select * from cores where cor.nome like "Azul%";</sampleQuery>
+        <sampleQuery>select cor.nome from cores where cor.nomecss = "dimgray";</sampleQuery>
     </meta>
       <bindings>
-        <select produces="XML">
+        <select itemPath="cores" produces="XML">
         <execute><![CDATA[
-          var url = "https://pt.wikipedia.org/wiki/Lista_de_cores";
-          var data = y.rest(url).accept('text/html').get().response;
 
-          var colorsXpath = {
-              tableRowElements: "//table[contains(@id, 'toc')]//tbody//tr"
-          };
+        // Exemplo de tr com informações sobre uma cor:
+        // <tr> 
+        //   <th style="text-align: left"> 
+        //    <a class="mw-redirect" href="/wiki/%C3%81gua_(cor)" title="Água (cor)">Água</a> 
+        //   </th> <td style="background-color: #00FFFF"/> 
+        //   <td style="font-family: monospace">#00FFFF</td> 
+        //   <td style="text-align: right">0</td> <!-- R -->
+        //   <td style="text-align: right">255</td> <!-- G -->
+        //   <td style="text-align: right">255</td> <!-- B -->
+        //   <td style="text-align: right">180°</td> <!-- H -->
+        //   <td style="text-align: right">100%</td> <!-- S -->
+        //   <td style="text-align: right">100%</td> <!-- V -->
+        //   <td style="font-family: monospace">aqua</td> 
+        // </tr>
 
-          var tableRowElements = y.xpath(data, colorsXpath.tableRowElements);
-          var rowsXML = new XML("<results>"+tableRowElements+"</results>");
-          var rowsObject = y.xmlToJson(rowsXML);
-          var rows = rowsObject.results.tr;
-
-          var cores = <cores></cores>;
-
-          for (var i = 0; i < rows.length; i++) {
-            var columns = rows[i].td;
-            var cor = <cor></cor>;
-
-            // Pegando o nome em portugues da cor
-            if(typeof rows[i].th.a !== "undefined") {
-              var nome = rows[i].th.a.content;
+        function ListaDeCores(data){
+            var data = this.data;
+            
+            function xpathToGetRows(){
+                return '//table[@id="toc"]/tbody/tr';
             }
-            else {
-              var nome = rows[i].th.content;
-            }
-            var nomeAttribute = <nome>{nome}</nome>;
-            cor.appendChild(nomeAttribute);
 
-            if(typeof columns !== "undefined") {
-              // y.log(columns);
-              for (var j=0; j < columns.length; j++){
-                // Pegando o hexa da cor
-                var hexa = columns[1].content;
-                var hexaAttribute = <hexadecimal>{hexa}</hexadecimal>;
-              }
-              cor.appendChild(hexaAttribute);
-              for (var j=0; j < columns.length; j++){
-                // Pegando o nome ingles da cor
-                var notation = columns[8].content;
-                if(typeof notation === "undefined"){
-                  var notation = "undefined";
+
+            var Cor = function(nome, hexadecimal, nomecss){
+                this.nome = nome;
+                this.hexadecimal = hexadecimal;
+                this.nomecss = nomecss;
+            }
+
+            function getJsonFromTable(){
+                return y.xmlToJson(new XML("<data>"+y.xpath(data, xpathToGetRows())+"</data>"));                
+            }
+
+            var rows = getJsonFromTable().data.tr;
+                        
+            var cores = [];                        
+            for(var key in rows) {
+                var row = rows[key];
+                var nome = typeof row.th.a !== "undefined" ? row.th.a.content : row.th.content;
+                var hexadecimal = typeof row.td !== "undefined" ? row.td[1].content : 'undefined';
+                var nomecss = typeof row.td !== "undefined" ? row.td[8].content : 'undefined';
+                // Evita que cores sem nome sejam exibidas no resultado
+                if(typeof nome !== "undefined"){
+                  var cor = new Cor(nome, hexadecimal, nomecss);                                  
+                  cores.push(cor);
                 }
-                var notationAttribute = <notacao>{notation}</notacao>;
-              }
-              cor.appendChild(notationAttribute);
-              cores.appendChild(cor);
             }
-          }
-          // y.log(cores);
+            return cores;
+        }
 
-          response.object = cores;
+        var url = "https://pt.wikipedia.org/wiki/Lista_de_cores";
+        var data = y.rest(url).accept('text/html').get().response;            
+        var cores = ListaDeCores(data);
+        
+        // Monta o objeto de resposta
+        var coresXml = <cores></cores>;
+        for (var i = 0; i < cores.length; i++){
+            var cor = cores[i];
+            var corXml = <cor></cor>;
+            var nomeXml = <nome>{cor.nome}</nome>;
+            var hexadecimalXml = <hexadecimal>{cor.hexadecimal}</hexadecimal>;
+            var nomecssXml = <nomecss>{cor.nomecss}</nomecss>;
+            corXml.appendChild(nomeXml);
+            corXml.appendChild(hexadecimalXml);
+            corXml.appendChild(nomecssXml);
+            coresXml.appendChild(corXml);
+        }
+
+        response.object = coresXml;
 
         ]]>
         </execute>
