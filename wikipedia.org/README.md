@@ -4,12 +4,18 @@
 
 Utiliza a url [https://pt.wikipedia.org/wiki/Lista_de_cores](https://pt.wikipedia.org/wiki/Lista_de_cores) para extrair informações sobre cores.
 Essas informações são:
-* Nome da cor em português
-* Valor hexadecimal da cor
-* Nome da cor em inglês (quando disponível)
-* Quantidade de vermelho na cor (EM BREVE)
-* Quantidade de verde na cor (EM BREVE)
-* Quantidade de azul na cor (EM BREVE)
+
+| Informações                   | nome do elemento | Observação                        |
+|-------------------------------|------------------|-----------------------------------|
+| Nome da cor em português      | nome             |                                   |
+| Valor hexadecimal da cor      | hexadecimal      |                                   |
+| Nome css da cor               | nomecss          | Informação nem sempre disponível  |
+| Quantidade de vermelho na cor | red              |                                   |
+| Quantidade de verde na cor    | green            |                                   |
+| Quantidade de azul na cor     | blue             |                                   |
+| Matiz da cor                  | hue              |                                   |
+| Saturação da cor              | saturation       |                                   |
+| Valor na cor                  | value            |                                   |
 
 Endereço do arquivo xml da tabela: [http://yql-tables.surge.sh/wikipedia.org/cores.xml](http://yql-tables.surge.sh/wikipedia.org/cores.xml)
 Para utilizar essa tabela em seu código YQL utilize a notação:
