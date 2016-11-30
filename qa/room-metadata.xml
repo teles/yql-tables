@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
+    <meta>
+        <author>Jota Teles - http://www.jotateles.com.br </author>
+        <description>Essa tabela retorna metadados de páginas do Viva Decora</description>
+        <documentationURL> https://github.com/teles/</documentationURL>
+        <sampleQuery>SELECT * FROM {table};</sampleQuery>
+    </meta>
+      <bindings>
+        <select itemPath="metadata" produces="XML">
+        <inputs>
+          <key id="env" type="xs:string" paramType="variable" required="false"/>
+          <key id="slug" type="xs:string" paramType="variable" required="true"/>
+        </inputs>
+        <execute><![CDATA[
+
+        if (!String.prototype.format) {
+            String.prototype.format = function() {
+                var args = arguments;
+                return this.replace(/{(\d+)}/g, function(match, number) {
+                    return typeof args[number] != 'undefined' ? args[number] : match;
+                });
+            };
+        }
+
+        function ParseMetadata(data){
+            var data =  this.data;
+
+            var Metadata = function(canonical, amphtml, title, h1, androidAlternate){
+                this.canonical = canonical;
+                this.amphtml = amphtml;
+                this.title = title;
+                this.h1 = h1;
+                this.androidAlternate = androidAlternate;
+            }
+
+            var canonical = y.xpath(data, "/html/head/link[@rel='canonical']/@href");
+            var amphtml = y.xpath(data, "/html/head/link[@rel='amphtml']/@href");
+            var title = y.xpath(data, "/html/head/title/text()");
+            var h1 = y.xpath(data, "/html//h1/text()");
+            var androidAlternate = y.xpath(data, '/html/head/link[@rel="alternate"][contains(@href, "android")]/@href');
+            canonical = canonical[0];
+            amphtml = amphtml[0];
+            androidAlternate = androidAlternate[0];
+
+            var metadata = new Metadata(canonical, amphtml, title, h1, androidAlternate);
+            return metadata;
+        }
+
+        var baseUrl = "https://{0}.vivadecora.com.br/{1}?_escaped_fragment_";
+        var defaultEnvironment = "qa";
+
+        var environment = defaultEnvironment;
+
+        if(typeof(env) === "undefined"){
+            environment = env;
+        }
+
+        var uris;
+
+        if(typeof(slug) === "string"){
+            uris = [slug];
+        }
+        else {
+            uris = slug;
+        }
+
+        var metadataXml = <metadata></metadata>;
+
+        for(var i = 0; i < uris.length; i++) {
+
+            var url = baseUrl.format(environment, uris[i]);
+
+            var data = y.rest(url).accept('text/html').get().response;
+            var metadata = ParseMetadata(data);
+
+            var pageXml = <page></page>;
+
+            var urlXml = <url>{url}</url>;
+            var canonicalXml = <canonical>{metadata.canonical}</canonical>;
+            var amphtmlXml = <amphtml>{metadata.amphtml}</amphtml>;
+            var titleXml = <title>{metadata.title}</title>;
+            var h1xml = <h1>{metadata.h1}</h1>;
+            var androidAlternateXml = <android-alternate>{metadata.androidAlternate}</android-alternate>;
+
+            pageXml.appendChild(titleXml);
+            pageXml.appendChild(urlXml);
+            pageXml.appendChild(canonicalXml);
+            pageXml.appendChild(amphtmlXml);
+            pageXml.appendChild(h1xml);
+            pageXml.appendChild(androidAlternateXml);
+            metadataXml.appendChild(pageXml);
+        }
+
+        response.object = metadataXml;
+
+        ]]>
+        </execute>
+      </select>
+      </bindings>
+</table>
