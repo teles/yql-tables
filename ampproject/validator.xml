@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
+    <meta>
+        <author>Jota Teles - http://www.jotateles.com.br </author>
+        <description>Essa tabela retorna validações do The AMP Validator</description>
+        <documentationURL> https://github.com/teles/</documentationURL>
+        <sampleQuery>SELECT * FROM {table};</sampleQuery>
+    </meta>
+      <bindings>
+        <select itemPath="metadata" produces="XML">
+        <inputs>
+          <key id="url" type="xs:string" paramType="variable" required="false"/>
+        </inputs>
+        <execute><![CDATA[
+
+        if (!String.prototype.format) {
+            String.prototype.format = function() {
+                var args = arguments;
+                return this.replace(/{(\d+)}/g, function(match, number) {
+                    return typeof args[number] != 'undefined' ? args[number] : match;
+                });
+            };
+        }
+
+        function ParseMetadata(data){
+            var data =  this.data;
+            var status = y.xpath(data, "/html/body//div[contains(@class, 'ampproject-result')");
+            return status;
+        }
+
+        var metadataXml = <metadata></metadata>;
+        var baseUrl = "https://validator.ampproject.org/#url={0}";
+        for(var i = 0; i < uris.length; i++) {
+
+            var url = baseUrl.format(url);
+            var data = y.rest(url).accept('text/html').get().response;
+            var metadata = ParseMetadata(data);
+            var pageXml = <page></page>;
+            var urlXml = <url>{url}</url>;
+
+            pageXml.appendChild(titleXml);
+            pageXml.appendChild(urlXml);
+            metadataXml.appendChild(pageXml);
+        }
+
+        response.object = metadataXml;
+
+        ]]>
+        </execute>
+      </select>
+      </bindings>
+</table>
